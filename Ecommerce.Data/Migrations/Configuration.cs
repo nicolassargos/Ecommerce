@@ -15,6 +15,18 @@ namespace Ecommerce.Data.Migrations
 
         protected override void Seed(EcommerceContext context)
         {
+            context.Database.ExecuteSqlCommand("ALTER TABLE [Categories] NOCHECK CONSTRAINT ALL");
+            context.Database.ExecuteSqlCommand("DELETE FROM [Categories]");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('Categories', RESEED, 0)");
+
+            context.Database.ExecuteSqlCommand("ALTER TABLE [Categories] CHECK CONSTRAINT ALL");
+
+            context.Database.ExecuteSqlCommand("ALTER TABLE [Products] NOCHECK CONSTRAINT ALL");
+            context.Database.ExecuteSqlCommand("DELETE FROM [Products]");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('Products', RESEED, 0)");
+
+            context.Database.ExecuteSqlCommand("ALTER TABLE [Products] CHECK CONSTRAINT ALL");
+
             // Principales catégories
             context.Categories.Add(new Category() { Name = "Informatique", ParentCategory = null, Products = null });
             context.Categories.Add(new Category() { Name = "Tv & Audio", ParentCategory = null, Products = null });
@@ -42,11 +54,10 @@ namespace Ecommerce.Data.Migrations
             context.SaveChanges();
 
             // Catégorie Accessoires
-            //var catTours = context.Categories.Where(c => c.Name == "Tours").SingleOrDefault();
-            //context.Categories.Add(new Category() { Name = "Dell", ParentCategory = catTours, Products = null });
-            //context.Categories.Add(new Category() { Name = "Lenovo", ParentCategory = catTours, Products = null });
-            //context.Categories.Add(new Category() { Name = "HP", ParentCategory = catTours, Products = null });
-            //context.SaveChanges();
+            var catAcc = context.Categories.Where(c => c.Name == "Accessoires").SingleOrDefault();
+            context.Categories.Add(new Category() { Name = "Souris", ParentCategory = catAcc, Products = null });
+            context.Categories.Add(new Category() { Name = "Claviers", ParentCategory = catAcc, Products = null });
+            context.SaveChanges();
         }
     }
 }
