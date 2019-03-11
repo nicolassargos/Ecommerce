@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ecommerce.Domain
+namespace Ecommerce.Common
 {
-    public class Product
+    public class ProductDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,6 +14,6 @@ namespace Ecommerce.Domain
         public decimal Price { get; set; }
         public DateTime PublicationDate { get; set; }
 
-        public Category Category { get; set; }
+        public CategoryDto Category { get; set; }
     }
 }

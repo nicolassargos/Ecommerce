@@ -1,6 +1,6 @@
 namespace Ecommerce.Data.Migrations
 {
-    using Ecommerce.Domain;
+    using Ecommerce.Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{157D6CE4-1A1B-40EF-B309-8232B194C2FB}</ProjectGuid>
+    <ProjectGuid>{92AB8E97-4E4E-4064-B213-B68462B134E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ecommerce.Entities</RootNamespace>
-    <AssemblyName>Ecommerce.Entities</AssemblyName>
+    <RootNamespace>Ecommerce.Business</RootNamespace>
+    <AssemblyName>Ecommerce.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,14 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,11 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Ecommerce.Common\Ecommerce.Common.csproj">
+      <Project>{8E5F722C-BFDA-485B-B9F1-1AB128C83F05}</Project>
+      <Name>Ecommerce.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ecommerce.Data\Ecommerce.Data.csproj">
+      <Project>{60DAAE55-8267-48C3-AB25-BA05C66386CB}</Project>
+      <Name>Ecommerce.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ecommerce\EcommerceAPI.csproj">
+      <Project>{4FD67EF1-7633-48F8-B500-D61CC5435947}</Project>
+      <Name>EcommerceAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Domain
+namespace Ecommerce.Entities
 {
     public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual Category ParentCategory { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }
