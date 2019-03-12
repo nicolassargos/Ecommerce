@@ -64,6 +64,14 @@
     <Compile Include="Migrations\201903111238304_AjoutParentCategory.Designer.cs">
       <DependentUpon>201903111238304_AjoutParentCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903121428434_v4.cs" />
+    <Compile Include="Migrations\201903121428434_v4.Designer.cs">
+      <DependentUpon>201903121428434_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121500097_v5.cs" />
+    <Compile Include="Migrations\201903121500097_v5.Designer.cs">
+      <DependentUpon>201903121500097_v5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201903121024181_AjoutSubcategoryACategory.cs" />
     <Compile Include="Migrations\201903121024181_AjoutSubcategoryACategory.Designer.cs">
       <DependentUpon>201903121024181_AjoutSubcategoryACategory.cs</DependentUpon>
@@ -95,6 +103,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903121024181_AjoutSubcategoryACategory.resx">
       <DependentUpon>201903121024181_AjoutSubcategoryACategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121428434_v4.resx">
+      <DependentUpon>201903121428434_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121500097_v5.resx">
+      <DependentUpon>201903121500097_v5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
