@@ -1,4 +1,5 @@
-﻿using Ecommerce.Common;
+﻿using Ecommerce.Business.Helpers;
+using Ecommerce.Data;
 using Ecommerce.Data.Repositories;
 using Ecommerce.Models;
 using System;
@@ -12,15 +13,19 @@ namespace Ecommerce.Business
     public class ProductService
     {
         private ProductRepository _repository;
+        private EcommerceContext _context;
 
         public ProductService()
         {
-
+            _context = new EcommerceContext();
+            _repository = new ProductRepository(_context);
         }
 
-        //public ProductDto GetProductById(int id)
-        //{
-        //    var product = _repository.Get(id);
-        //}
+        public ProductModel GetProductById(int id)
+        {
+            return ProductModelBuilder.Create(_repository.Get(id));
+        }
+
+
     }
 }
