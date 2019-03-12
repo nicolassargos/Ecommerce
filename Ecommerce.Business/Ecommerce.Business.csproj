@@ -60,10 +60,6 @@
       <Project>{60DAAE55-8267-48C3-AB25-BA05C66386CB}</Project>
       <Name>Ecommerce.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ecommerce\EcommerceAPI.csproj">
-      <Project>{4FD67EF1-7633-48F8-B500-D61CC5435947}</Project>
-      <Name>EcommerceAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
