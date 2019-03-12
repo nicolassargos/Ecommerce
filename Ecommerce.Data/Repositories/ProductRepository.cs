@@ -44,7 +44,7 @@ namespace Ecommerce.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Product Get(int Id)
+        public Product GetById(int Id)
         {
             return _context
                 .Products
@@ -53,7 +53,17 @@ namespace Ecommerce.Data.Repositories
                 .Single();
         }
 
-        public IQueryable<Product> GetAll()
+        public Product GetByName(string name)
+        {
+            return _context
+                .Products
+                .Where(prod => prod.Name == name)
+                .Include(prod => prod.Category)
+                .Single();
+        }
+
+
+        public IQueryable<Product> GetByName()
         {
             return _context.Products;
         }

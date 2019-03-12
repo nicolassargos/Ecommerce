@@ -19,12 +19,12 @@ namespace Ecommerce.Business
 
         public CategoryModel GetCategoryById(int id)
         {
-            return CategoryModelBuilder.Create(_repository.Get(id));
+            return CategoryModelBuilder.Create(_repository.GetById(id));
         }
 
         public IEnumerable<CategoryModel> GetCategoryHierarchy()
         {
-            var rootCategories = _repository.GetAll().Where(x => x.ParentCategory == null);
+            var rootCategories = _repository.GetByName().Where(x => x.ParentCategory == null);
 
             foreach(var cat in rootCategories)
             {

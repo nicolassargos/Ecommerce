@@ -24,7 +24,7 @@ namespace Ecommerce.Business
 
         public ProductModel GetProductById(int id)
         {
-            return ProductModelBuilder.Create(_repository.Get(id));
+            return ProductModelBuilder.Create(_repository.GetById(id));
         }
 
         public ProductModel GetProductByName(string name)
@@ -35,22 +35,20 @@ namespace Ecommerce.Business
         public List<ProductModel> GetByPartialName(string name)
         {
             var productModels = new List<ProductModel>();
+            //if (!string.IsNullOrEmpty(name))
+            //{
+            //    foreach (var product in _repository.GetByName())
+            //    {
+            //        productModels.Add(ProductModelBuilder.Create(product));
+            //    }
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                foreach (var product in _repository.GetAll())
-                {
-                    productModels.Add(ProductModelBuilder.Create(product));
-                }
+            //    return productModels;
+            //}
 
-                return productModels;
-            }
-
-            foreach (var product in _repository.GetAll().Where(x => x.Name.Contains(name)))
+            foreach (var product in _repository.GetByName().Where(x => x.Name.Contains(name)))
             {
                 productModels.Add(ProductModelBuilder.Create(product));
             }
-
             return productModels;
         }
     }

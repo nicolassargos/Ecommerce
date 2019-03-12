@@ -8,11 +8,13 @@ namespace Ecommerce.Data
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity Get(int Id);
+        TEntity GetById(int id);
+
+        TEntity GetByName(string name);
 
         TEntity GetSingle(Func<TEntity, bool> predicate);
 
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetByName();
 
         TEntity Add(TEntity entity);
 
