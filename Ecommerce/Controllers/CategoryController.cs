@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace Ecommerce.Controllers
 {
-    [EnableCors("*", "*", "GET")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CategoryController : ApiController
     {
         private CategoryService _service;
@@ -27,10 +27,11 @@ namespace Ecommerce.Controllers
         }
 
         // GET: api/Category/5
-        public IHttpActionResult Get(int id)
-        {
-            return Ok(_service.GetCategoryById(id));
-        }
+        //[EnableCors("*", "*", "*")]
+        //public IHttpActionResult Get(int id)
+        //{
+        //    return Ok(_service.GetCategoryById(id));
+        //}
 
         // POST: api/Category
         public IHttpActionResult Post([FromBody]CategoryModel category)

@@ -12,8 +12,7 @@ namespace Ecommerce
     {
         public static void Register(HttpConfiguration config)
         {
-            //config.EnableCors();
-            
+
             // Web API configuration and services
 
             // Web API routes
@@ -24,11 +23,13 @@ namespace Ecommerce
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-              
+            
+            config.EnableCors();
 
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //config.Formatters.Add(jsonFormatter);
+
+            //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
+            //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            ////config.Formatters.Add(jsonFormatter);
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
 

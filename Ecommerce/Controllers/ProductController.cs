@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using Ecommerce.Business;
-using Ecommerce.Business.Models;
-using Ecommerce.Models;
 
 namespace Ecommerce.Controllers
 {
+    [EnableCors("*", "*", "*")]
+    //[RoutePrefix("api/[controller]")]
     public class ProductController : ApiController
     {
-
         ProductService productService = new ProductService();
+
         [Route("api/product/{name}")]
+        [HttpGet]
         public IHttpActionResult GetProductByName(string name)
         {
         return Ok(productService.GetProductByName(name));
@@ -29,6 +22,7 @@ namespace Ecommerce.Controllers
             return Ok(productService.GetByPartialName(name));
         }
 
+        [HttpGet]
         public IHttpActionResult GetProductById(int id)
         {
             return Ok(productService.GetProductById(id));

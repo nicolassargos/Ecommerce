@@ -63,7 +63,7 @@ namespace Ecommerce.Data.Migrations
             context.SaveChanges();
 
             var product = context.Products.Add(new Product() { Name = "Laptop Vaio", Description = "Ordinateur Portable",
-                Price = 1357, PublicationDate = DateTime.Now, Category = context.Categories.First(x => x.Id == 1)
+                Price = 1357, PublicationDate = DateTime.Now, Category = context.Categories.First(x => x.Id == 0)
             });
 
             context.SaveChanges();
@@ -74,7 +74,7 @@ namespace Ecommerce.Data.Migrations
                 Description = "Ordinateur Portable",
                 Price = 9999,
                 PublicationDate = DateTime.Now,
-                Category = context.Categories.First(x => x.Id == 1)
+                Category = context.Categories.First(x => x.Id == 0)
             });
 
             context.SaveChanges();
