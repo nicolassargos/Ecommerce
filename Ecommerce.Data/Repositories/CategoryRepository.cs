@@ -45,7 +45,11 @@ namespace Ecommerce.Data.Repositories
 
         public Category Get(int Id)
         {
-            return _context.Categories.Single(cat => cat.Id == Id);
+            var result = _context.Categories.Single(cat => cat.Id == Id);
+
+            _context.Entry(result).Reference(x => x.SubCategories).Load();
+
+            return result;
         }
 
         public IQueryable<Category> GetAll()

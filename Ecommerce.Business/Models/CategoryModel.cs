@@ -16,5 +16,6 @@ namespace Ecommerce.Models
         public string name { get; set; }
         [ForeignKey("parentCategoryId")]
         public int parentCategoryId { get; set; }
+        public List<CategoryModel> subCategories { get; set; }
     }
 }

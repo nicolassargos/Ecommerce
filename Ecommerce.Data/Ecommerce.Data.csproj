@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201903111238304_AjoutParentCategory.Designer.cs">
       <DependentUpon>201903111238304_AjoutParentCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903121024181_AjoutSubcategoryACategory.cs" />
+    <Compile Include="Migrations\201903121024181_AjoutSubcategoryACategory.Designer.cs">
+      <DependentUpon>201903121024181_AjoutSubcategoryACategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
@@ -88,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903111238304_AjoutParentCategory.resx">
       <DependentUpon>201903111238304_AjoutParentCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121024181_AjoutSubcategoryACategory.resx">
+      <DependentUpon>201903121024181_AjoutSubcategoryACategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

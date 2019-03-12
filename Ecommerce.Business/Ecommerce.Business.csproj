@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryService.cs" />
+    <Compile Include="Models\CategoryHierarchyModel.cs" />
     <Compile Include="Helpers\CategoryModelBuilder.cs" />
     <Compile Include="Helpers\ProductModelBuilder.cs" />
     <Compile Include="Models\CategoryModel.cs" />
