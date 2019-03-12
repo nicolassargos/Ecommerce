@@ -12,23 +12,24 @@ namespace Ecommerce.Business.Helpers
     {
         public static CategoryModel Create(Category category)
         {
-            return new CategoryModel
+            var result = new CategoryModel
             {
                 id = category.Id,
                 name = category.Name,
-                parentCategoryId = category.ParentCategory.Id,
-                subCategories = category.SubCategories
+                parentCategoryId = (category.ParentCategory == null) ? 0 : category.ParentCategory.Id
             };
-        }
 
-        //public static CategoryHierarchyModel CreateWithHierarchy(Category category)
-        //{
-        //    //return new CategoryHierarchyModel
-        //    //{
-        //    //    id = category.Id,
-        //    //    name = category.Name,
-        //    //    subCategories = category.SubCategories;
-        //    //};
-        //}
+            if (category.SubCategories.Count > 0)
+            {
+                foreach (var cat in category.SubCategories)
+                {
+                    if (result.subCategories == null) result.subCategories = new List<CategoryModel>();
+                    result.subCategories.Add(CategoryModelBuilder.Create(cat));
+                }
+            }
+            
+
+            return result;
+        }
     }
 }
