@@ -48,8 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\CategoryDto.cs" />
-    <Compile Include="Dto\ProductDto.cs" />
     <Compile Include="EcommerceContext.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Product.cs" />
@@ -79,10 +77,6 @@
     <ProjectReference Include="..\Ecommerce.Common\Ecommerce.Common.csproj">
       <Project>{8E5F722C-BFDA-485B-B9F1-1AB128C83F05}</Project>
       <Name>Ecommerce.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ecommerce.Entities\Ecommerce.Domain.csproj">
-      <Project>{157D6CE4-1A1B-40EF-B309-8232B194C2FB}</Project>
-      <Name>Ecommerce.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
