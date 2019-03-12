@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Ecommerce.Controllers
 {
+    [EnableCors("*", "*", "GET")]
     public class CategoryController : ApiController
     {
         private CategoryService _service;
@@ -31,9 +33,9 @@ namespace Ecommerce.Controllers
         }
 
         // POST: api/Category
-        public void Post([FromBody]CategoryModel value)
+        public CategoryModel Post([FromBody]CategoryModel category)
         {
-
+            return _service.CreateCategory(category);
         }
 
         // PUT: api/Category/5

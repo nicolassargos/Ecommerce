@@ -19,7 +19,7 @@ namespace Ecommerce.Business.Helpers
                 parentCategoryId = (category.ParentCategory == null) ? 0 : category.ParentCategory.Id
             };
 
-            if (category.SubCategories.Count > 0)
+            if (category.SubCategories != null && category.SubCategories.Count > 0)
             {
                 foreach (var cat in category.SubCategories)
                 {
@@ -27,8 +27,6 @@ namespace Ecommerce.Business.Helpers
                     result.subCategories.Add(CategoryModelBuilder.Create(cat));
                 }
             }
-            
-
             return result;
         }
     }

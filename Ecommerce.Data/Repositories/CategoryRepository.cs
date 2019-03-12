@@ -47,7 +47,7 @@ namespace Ecommerce.Data.Repositories
         {
             var result = _context.Categories.Single(cat => cat.Id == Id);
 
-            _context.Entry(result).Reference(x => x.SubCategories).Load();
+            _context.Entry(result).Collection(x => x.SubCategories).Load();
 
             return result;
         }
