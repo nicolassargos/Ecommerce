@@ -35,7 +35,10 @@ namespace Ecommerce.Data.Repositories
 
         public void Delete(Category entity)
         {
-            throw new NotImplementedException();
+            //if (!_context.Categories.Contains(entity)) throw new ArgumentException("L'entité est introuvable en base.");
+            _context.Categories.Remove(entity);
+
+            _context.SaveChanges();
         }
 
         public void DeleteById(int Id)

@@ -21,21 +21,21 @@ namespace Ecommerce.Controllers
         }
 
         // GET: api/Category
-        public IEnumerable<CategoryModel> Get()
+        public IHttpActionResult Get()
         {
-            return _service.GetCategoryHierarchy();
+            return Ok(_service.GetCategoryHierarchy());
         }
 
         // GET: api/Category/5
-        public CategoryModel Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return _service.GetCategoryById(id);
+            return Ok(_service.GetCategoryById(id));
         }
 
         // POST: api/Category
-        public CategoryModel Post([FromBody]CategoryModel category)
+        public IHttpActionResult Post([FromBody]CategoryModel category)
         {
-            return _service.CreateCategory(category);
+            return Ok(_service.CreateCategory(category));
         }
 
         // PUT: api/Category/5
@@ -44,8 +44,18 @@ namespace Ecommerce.Controllers
         }
 
         // DELETE: api/Category/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            try
+            {
+                _service.DeleteCategory(id);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            
+            return Ok();
         }
     }
 }

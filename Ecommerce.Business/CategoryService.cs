@@ -3,6 +3,7 @@ using Ecommerce.Data;
 using Ecommerce.Data.Repositories;
 using Ecommerce.Entities;
 using Ecommerce.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace Ecommerce.Business
@@ -58,6 +59,18 @@ namespace Ecommerce.Business
             var result = _repository.Add(newCategory);
 
             return CategoryModelBuilder.Create(result);
+        }
+
+        public void DeleteCategory(int id)
+        {
+            var category = _repository.GetById(id);
+
+            // gestion des erreurs
+            if (category == null) throw new ArgumentException("La catégorie n'existe pas.");
+            if (category.SubCategories != null && category.SubCategories.Count > 0) throw new Exception("La catégorie contient d'autres catégories");
+            if (category.Products != null && category.Products.Count > 0) throw new Exception("La catégorie contient des produits");
+
+            _repository.Delete(category);
         }
     }
 }
