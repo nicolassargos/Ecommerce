@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,11 @@ namespace Ecommerce.Data.Repositories
 
         public Product Get(int Id)
         {
-            return _context.Products.Single(prod => prod.Id == Id);
+            return _context
+                .Products
+                .Where(prod => prod.Id == Id)
+                .Include(prod=>prod.Category)
+                .Single();
         }
 
         public IQueryable<Product> GetAll()

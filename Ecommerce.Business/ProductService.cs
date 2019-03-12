@@ -32,7 +32,7 @@ namespace Ecommerce.Business
             return ProductModelBuilder.Create(_repository.GetSingle(x => x.Name == name));
         }
 
-        public List<ProductModel> GetByPartialName(string name ="")
+        public List<ProductModel> GetByPartialName(string name)
         {
             var productModels = new List<ProductModel>();
 
