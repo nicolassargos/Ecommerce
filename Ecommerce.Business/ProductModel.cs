@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Ecommerce.Business.Models
+namespace Ecommerce.Models
 {
     public class ProductModel
     {

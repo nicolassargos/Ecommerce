@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Business.Helpers;
+using Ecommerce.Business.Models;
 using Ecommerce.Data;
 using Ecommerce.Data.Repositories;
 using Ecommerce.Models;
@@ -26,6 +27,31 @@ namespace Ecommerce.Business
             return ProductModelBuilder.Create(_repository.Get(id));
         }
 
+        public ProductModel GetProductByName(string name)
+        {
+            return ProductModelBuilder.Create(_repository.GetSingle(x => x.Name == name));
+        }
 
+        public List<ProductModel> GetByPartialName(string name ="")
+        {
+            var productModels = new List<ProductModel>();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                foreach (var product in _repository.GetAll())
+                {
+                    productModels.Add(ProductModelBuilder.Create(product));
+                }
+
+                return productModels;
+            }
+
+            foreach (var product in _repository.GetAll().Where(x => x.Name.Contains(name)))
+            {
+                productModels.Add(ProductModelBuilder.Create(product));
+            }
+
+            return productModels;
+        }
     }
 }
