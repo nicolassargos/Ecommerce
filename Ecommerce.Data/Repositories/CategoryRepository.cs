@@ -46,13 +46,18 @@ namespace Ecommerce.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public IQueryable<Category> GetAll()
+        {
+            return _context.Categories;
+        }
+
         public Category GetById(int Id)
         {
-            var result = _context.Categories.Single(cat => cat.Id == Id);
+            var category = _context.Categories.Single(cat => cat.Id == Id);
 
-            _context.Entry(result).Collection(x => x.SubCategories).Load();
+            _context.Entry(category).Collection(x => x.SubCategories).Load();
 
-            return result;
+            return category;
         }
 
         public Category GetByName(string name)
@@ -63,9 +68,11 @@ namespace Ecommerce.Data.Repositories
             return result;
         }
 
+
+
         public IQueryable<Category> GetByName()
         {
-            return _context.Categories;
+            throw new NotImplementedException();
         }
 
         public Category GetSingle(Func<Category, bool> predicate)
