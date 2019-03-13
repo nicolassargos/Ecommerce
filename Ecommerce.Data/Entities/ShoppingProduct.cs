@@ -12,7 +12,7 @@ namespace Ecommerce.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public decimal Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public Product Product { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
