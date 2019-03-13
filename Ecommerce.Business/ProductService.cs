@@ -2,12 +2,15 @@
 using Ecommerce.Business.Models;
 using Ecommerce.Data;
 using Ecommerce.Data.Repositories;
+using Ecommerce.Entities;
 using Ecommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Ecommerce.Business
 {
@@ -50,6 +53,30 @@ namespace Ecommerce.Business
                 productModels.Add(ProductModelBuilder.Create(product));
             }
             return productModels;
+        }
+
+
+        public ProductModel CreateProduct (ProductModel productC)
+        {
+            Product newProduct = new Product
+            {
+                Name = productC.name,
+                Description = productC.description,
+                Price = productC.price,
+                PublicationDate = DateTime.Now
+            };
+
+
+            newProduct.Category = _context.Categories.Single(c => c.Id == productC.categoryId);
+
+            return ProductModelBuilder.Create(_repository.Add(newProduct));
+
+        }
+
+        public void DeleteProduct(int id)
+        {
+            var product = _repository.GetById(id);
+
         }
     }
 }

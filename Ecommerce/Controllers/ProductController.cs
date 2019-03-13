@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Cors;
 using Ecommerce.Business;
+using Ecommerce.Business.Models;
 
 namespace Ecommerce.Controllers
 {
@@ -26,6 +27,12 @@ namespace Ecommerce.Controllers
         public IHttpActionResult GetProductById(int id)
         {
             return Ok(productService.GetProductById(id));
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateProduct(ProductModel product)
+        {
+            return Ok(productService.CreateProduct(product));
         }
 
 
