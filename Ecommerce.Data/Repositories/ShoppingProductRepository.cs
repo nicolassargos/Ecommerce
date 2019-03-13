@@ -53,6 +53,11 @@ namespace Ecommerce.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public IQueryable<ShoppingProduct> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public ShoppingProduct GetById(int id)
         {
             return _context
@@ -75,13 +80,7 @@ namespace Ecommerce.Data.Repositories
 
         public ShoppingProduct GetSingle(Func<ShoppingProduct, bool> predicate)
         {
-            return null;
-        //_context
-        //            .ShoppingProducts
-        //            .SingleOrDefault(predicate)
-        //            .Load()
-        //            .Include(spp => spp.ShoppingCart)
-        //            ;
+            throw new NotImplementedException();
         }
 
         public ShoppingProduct Update(ShoppingProduct entity)
