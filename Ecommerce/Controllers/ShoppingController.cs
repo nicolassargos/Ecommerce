@@ -27,9 +27,17 @@ namespace Ecommerce.Controllers
         }
 
         // GET: api/Shopping/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                var cart =_service.GetShoppingCart(id);
+                return Ok(cart);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         // POST: api/Shopping
