@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Http.Cors;
 using Ecommerce.Business;
 using Ecommerce.Business.Models;
@@ -33,6 +34,20 @@ namespace Ecommerce.Controllers
         public IHttpActionResult CreateProduct(ProductModel product)
         {
             return Ok(productService.CreateProduct(product));
+        }
+
+        [HttpPut]
+        public IHttpActionResult ModifyProduct(ProductModel product)
+        {
+            try
+            {
+                return Ok(productService.ModifyProduct(product));
+                //return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
 
