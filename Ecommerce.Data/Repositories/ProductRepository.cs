@@ -77,5 +77,11 @@ namespace Ecommerce.Data.Repositories
         {
             throw new NotImplementedException();
         }
+
+
+        IQueryable<Product> IRepository<Product>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

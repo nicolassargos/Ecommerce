@@ -53,6 +53,11 @@ namespace Ecommerce.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public IQueryable<ShoppingProduct> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public ShoppingProduct GetById(int id)
         {
             return _context
