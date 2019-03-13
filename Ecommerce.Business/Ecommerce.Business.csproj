@@ -64,8 +64,11 @@
     <Compile Include="Helpers\ProductModelBuilder.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ShoppingCartModel.cs" />
+    <Compile Include="Models\ShoppingProductModel.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ShoppingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ecommerce.Common\Ecommerce.Common.csproj">
