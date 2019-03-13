@@ -337,6 +337,10 @@
       <Project>{92ab8e97-4e4e-4064-b213-b68462b134e1}</Project>
       <Name>Ecommerce.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ecommerce.Data\Ecommerce.Data.csproj">
+      <Project>{60DAAE55-8267-48C3-AB25-BA05C66386CB}</Project>
+      <Name>Ecommerce.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

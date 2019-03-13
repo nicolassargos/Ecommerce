@@ -38,15 +38,6 @@ namespace Ecommerce.Business
         public List<ProductModel> GetByPartialName(string name)
         {
             var productModels = new List<ProductModel>();
-            //if (!string.IsNullOrEmpty(name))
-            //{
-            //    foreach (var product in _repository.GetByName())
-            //    {
-            //        productModels.Add(ProductModelBuilder.Create(product));
-            //    }
-
-            //    return productModels;
-            //}
 
             foreach (var product in _repository.GetByName().Where(x => x.Name.Contains(name)))
             {
@@ -73,10 +64,23 @@ namespace Ecommerce.Business
 
         }
 
-        public void DeleteProduct(int id)
+        public ProductModel ModifyProduct(ProductModel productU)
         {
-            var product = _repository.GetById(id);
+            Product productToUpdate = _repository.GetById(productU.id);
+            if (productToUpdate == null)
+            {
+                throw new ArgumentException("Le produit est introuvable.");
+            }
+            else
+            {
+                productToUpdate.Name = productU.name;
+                productToUpdate.Price = productU.price;
+                productToUpdate.PublicationDate = DateTime.Now;
+                productToUpdate.Description = productU.description;
+            }
+            return ProductModelBuilder.Create(_repository.Update(productToUpdate));
 
+            
         }
     }
 }
