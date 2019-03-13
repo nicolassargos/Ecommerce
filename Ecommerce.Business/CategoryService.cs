@@ -35,7 +35,7 @@ namespace Ecommerce.Business
         /// <returns></returns>
         public IEnumerable<CategoryModel> GetCategoryHierarchy()
         {
-            var rootCategories = _repository.GetByName().Where(x => x.ParentCategory == null);
+            var rootCategories = _repository.GetAll().Where(x => x.ParentCategory == null);
 
             foreach(var cat in rootCategories)
             {
