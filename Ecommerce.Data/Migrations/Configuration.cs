@@ -29,6 +29,9 @@ namespace Ecommerce.Data.Migrations
 
             context.Database.ExecuteSqlCommand("ALTER TABLE [Products] CHECK CONSTRAINT ALL");
 
+
+
+
             // Principales catégories
             context.Categories.Add(new Category() { Name = "Informatique", ParentCategory = null, Products = null });
             context.Categories.Add(new Category() { Name = "Tv & Audio", ParentCategory = null, Products = null });
@@ -80,6 +83,8 @@ namespace Ecommerce.Data.Migrations
                 PublicationDate = DateTime.Now,
                 Category = context.Categories.First(x => x.Name == "Dell")
             });
+
+           
 
             context.SaveChanges();
 
