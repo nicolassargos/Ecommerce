@@ -26,6 +26,13 @@ namespace Ecommerce.Controllers
             return Ok(_service.GetCategoryHierarchy());
         }
 
+        [HttpGet]
+        [Route("all")]
+        public IHttpActionResult GetAll()
+        {
+            return Ok(_service.GetAllCategories());
+        }
+
         // GET: api/Category/5
         //[EnableCors("*", "*", "*")]
         //public IHttpActionResult Get(int id)
