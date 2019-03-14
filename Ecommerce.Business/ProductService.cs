@@ -78,9 +78,20 @@ namespace Ecommerce.Business
                 productToUpdate.PublicationDate = DateTime.Now;
                 productToUpdate.Description = productU.description;
             }
-            return ProductModelBuilder.Create(_repository.Update(productToUpdate));
-
-            
+            return ProductModelBuilder.Create(_repository.Update(productToUpdate));           
         }
+
+        public List<ProductModel> GetAllProducts()
+        {
+            var productModelList = new List<ProductModel>();
+
+            foreach (var p in _repository.GetAll())
+            {
+                productModelList.Add(ProductModelBuilder.Create(p));
+            }
+
+            return productModelList;
+        }    
+        
     }
 }
