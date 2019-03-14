@@ -49,6 +49,12 @@ namespace Ecommerce.Controllers
                 return InternalServerError(ex);
             }
         }
+        [Route("api/product/getallproduct")]
+        [HttpGet]
+        public IHttpActionResult GetAllProduct()
+        {
+            return Ok(productService.GetAllProducts());
+        }
 
 
     }

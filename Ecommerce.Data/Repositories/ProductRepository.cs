@@ -53,6 +53,11 @@ namespace Ecommerce.Data.Repositories
                 .Single();
         }
 
+        public List<Product> GetAll()
+        {
+            return _context.Products.ToList();
+        }
+
         public Product GetByName(string name)
         {
             return _context
