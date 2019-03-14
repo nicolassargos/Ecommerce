@@ -38,7 +38,11 @@ namespace Ecommerce.Data.Repositories
 
         public ShoppingCart GetById(int id)
         {
-            throw new NotImplementedException();
+            var cart = _context.ShoppingCarts.Single(cat => cat.Id == id);
+
+            _context.Entry(cart).Collection(x => x.ShoppingProducts).Load();
+
+            return cart;
         }
 
         public ShoppingCart GetByName(string name)

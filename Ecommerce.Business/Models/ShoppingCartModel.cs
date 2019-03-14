@@ -13,6 +13,6 @@ namespace Ecommerce.Business.Models
         [Key]
         public int id { get; set; }
         public int userId { get; set; }
-        public List<ShoppingProductModel> ShoppingProducts { get; set; }
+        public List<ShoppingProductModel> shoppingProducts { get; set; }
     }
 }

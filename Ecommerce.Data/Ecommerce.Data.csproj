@@ -86,6 +86,10 @@
     <Compile Include="Migrations\201903130948332_ModifsShpping.Designer.cs">
       <DependentUpon>201903130948332_ModifsShpping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903131423063_MoifsShppingCart.cs" />
+    <Compile Include="Migrations\201903131423063_MoifsShppingCart.Designer.cs">
+      <DependentUpon>201903131423063_MoifsShppingCart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
@@ -128,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903130948332_ModifsShpping.resx">
       <DependentUpon>201903130948332_ModifsShpping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903131423063_MoifsShppingCart.resx">
+      <DependentUpon>201903131423063_MoifsShppingCart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
