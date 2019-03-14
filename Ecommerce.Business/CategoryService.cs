@@ -29,6 +29,16 @@ namespace Ecommerce.Business
             return CategoryModelBuilder.Create(_repository.GetById(id));
         }
 
+        public IEnumerable<CategoryModel> GetAllCategories()
+        {
+            var allCategories = _repository.GetAll();
+
+            foreach(var cat in allCategories)
+            {
+                yield return CategoryModelBuilder.Create(cat);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
