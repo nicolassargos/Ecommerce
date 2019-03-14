@@ -54,41 +54,9 @@
     <Compile Include="Entities\ShoppingCart.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="Migrations\201903111121506_Initial_Create.cs" />
-    <Compile Include="Migrations\201903111121506_Initial_Create.Designer.cs">
-      <DependentUpon>201903111121506_Initial_Create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903111129438_Ajout_des_sous_categories.cs" />
-    <Compile Include="Migrations\201903111129438_Ajout_des_sous_categories.Designer.cs">
-      <DependentUpon>201903111129438_Ajout_des_sous_categories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903111238304_AjoutParentCategory.cs" />
-    <Compile Include="Migrations\201903111238304_AjoutParentCategory.Designer.cs">
-      <DependentUpon>201903111238304_AjoutParentCategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903121428434_v4.cs" />
-    <Compile Include="Migrations\201903121428434_v4.Designer.cs">
-      <DependentUpon>201903121428434_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903121500097_v5.cs" />
-    <Compile Include="Migrations\201903121500097_v5.Designer.cs">
-      <DependentUpon>201903121500097_v5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903121024181_AjoutSubcategoryACategory.cs" />
-    <Compile Include="Migrations\201903121024181_AjoutSubcategoryACategory.Designer.cs">
-      <DependentUpon>201903121024181_AjoutSubcategoryACategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903130859374_CréationTablesShopping.cs" />
-    <Compile Include="Migrations\201903130859374_CréationTablesShopping.Designer.cs">
-      <DependentUpon>201903130859374_CréationTablesShopping.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903130948332_ModifsShpping.cs" />
-    <Compile Include="Migrations\201903130948332_ModifsShpping.Designer.cs">
-      <DependentUpon>201903130948332_ModifsShpping.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903131423063_MoifsShppingCart.cs" />
-    <Compile Include="Migrations\201903131423063_MoifsShppingCart.Designer.cs">
-      <DependentUpon>201903131423063_MoifsShppingCart.cs</DependentUpon>
+    <Compile Include="Migrations\201903140956088_v1.cs" />
+    <Compile Include="Migrations\201903140956088_v1.Designer.cs">
+      <DependentUpon>201903140956088_v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,34 +77,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903111121506_Initial_Create.resx">
-      <DependentUpon>201903111121506_Initial_Create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903111129438_Ajout_des_sous_categories.resx">
-      <DependentUpon>201903111129438_Ajout_des_sous_categories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903111238304_AjoutParentCategory.resx">
-      <DependentUpon>201903111238304_AjoutParentCategory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121024181_AjoutSubcategoryACategory.resx">
-      <DependentUpon>201903121024181_AjoutSubcategoryACategory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121428434_v4.resx">
-      <DependentUpon>201903121428434_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121500097_v5.resx">
-      <DependentUpon>201903121500097_v5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903130859374_CréationTablesShopping.resx">
-      <DependentUpon>201903130859374_CréationTablesShopping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903130948332_ModifsShpping.resx">
-      <DependentUpon>201903130948332_ModifsShpping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903131423063_MoifsShppingCart.resx">
-      <DependentUpon>201903131423063_MoifsShppingCart.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903140956088_v1.resx">
+      <DependentUpon>201903140956088_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

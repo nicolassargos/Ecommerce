@@ -80,9 +80,9 @@ namespace Ecommerce.Data.Repositories
 
         public Product Update(Product entity)
         {
-         
+
             var productToUpdate = _context.Products.Single(x => x.Id == entity.Id);
-          
+
             _context.Entry(productToUpdate).CurrentValues.SetValues(entity.Id);
             _context.SaveChanges();
             return _context.Products.Single(x => x.Id == entity.Id);

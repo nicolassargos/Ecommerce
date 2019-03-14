@@ -9,7 +9,7 @@ namespace Ecommerce.Data
 {
     public class EcommerceContext : DbContext
     {
-        public EcommerceContext() : base()
+        public EcommerceContext() : base("name=EcommerceContext")
         {
 
         }

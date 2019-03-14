@@ -6,16 +6,15 @@ namespace Ecommerce.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EcommerceContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Ecommerce.Data.EcommerceContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(EcommerceContext context)
+        protected override void Seed(Ecommerce.Data.EcommerceContext context)
         {
-
             context.Database.ExecuteSqlCommand("DELETE FROM [Products]");
             context.Database.ExecuteSqlCommand("DELETE FROM [Categories]");
 
@@ -62,8 +61,13 @@ namespace Ecommerce.Data.Migrations
             context.Categories.Add(new Category() { Name = "Claviers", ParentCategory = catAcc, Products = null });
             context.SaveChanges();
 
-            var product = context.Products.Add(new Product() { Name = "Laptop Vaio", Description = "Ordinateur Portable",
-                Price = 1357, PublicationDate = DateTime.Now, Category = context.Categories.First(x => x.Name == "Dell")
+            var product = context.Products.Add(new Product()
+            {
+                Name = "Laptop Vaio",
+                Description = "Ordinateur Portable",
+                Price = 1357,
+                PublicationDate = DateTime.Now,
+                Category = context.Categories.First(x => x.Name == "Dell")
             });
 
             context.SaveChanges();
