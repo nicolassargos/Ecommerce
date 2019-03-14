@@ -19,12 +19,14 @@ namespace Ecommerce.Business.Helpers
                 shoppingProducts = new List<ShoppingProductModel>()
             };
 
-            if (cart.ShoppingProducts != null && cart.ShoppingProducts.Count > 0)
+            if (cart.ShoppingProducts == null || cart.ShoppingProducts.Count == 0)
             {
-                foreach (var prod in cart.ShoppingProducts)
-                {
-                    cartModel.shoppingProducts.Add(ShoppingProductModelBuilder.Create(prod));
-                }
+                return cartModel;
+            }
+
+            foreach (var prod in cart.ShoppingProducts)
+            {
+                cartModel.shoppingProducts.Add(ShoppingProductModelBuilder.Create(prod));
             }
 
             return cartModel;

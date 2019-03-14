@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 namespace Ecommerce.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/[controller]")]
     public class CategoryController : ApiController
     {
         private CategoryService _service;

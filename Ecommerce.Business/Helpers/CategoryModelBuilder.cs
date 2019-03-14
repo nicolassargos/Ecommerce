@@ -19,14 +19,18 @@ namespace Ecommerce.Business.Helpers
                 parentCategoryId = (category.ParentCategory == null) ? 0 : category.ParentCategory.Id
             };
 
-            if (category.SubCategories != null && category.SubCategories.Count > 0)
+
+            if (category.SubCategories == null || category.SubCategories.Count == 0)
             {
-                foreach (var cat in category.SubCategories)
-                {
-                    if (result.subCategories == null) result.subCategories = new List<CategoryModel>();
-                    result.subCategories.Add(CategoryModelBuilder.Create(cat));
-                }
+                return result;
             }
+
+            foreach (var cat in category.SubCategories)
+            {
+                if (result.subCategories == null) result.subCategories = new List<CategoryModel>();
+                result.subCategories.Add(CategoryModelBuilder.Create(cat));
+            }
+            
             return result;
         }
     }
