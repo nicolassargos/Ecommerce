@@ -35,7 +35,7 @@ namespace Ecommerce.Business
 
             foreach(var cat in allCategories)
             {
-                yield return CategoryModelBuilder.Create(cat);
+                yield return CategoryModelBuilder.CreateWithoutDependancy(cat);
             }
         }
 

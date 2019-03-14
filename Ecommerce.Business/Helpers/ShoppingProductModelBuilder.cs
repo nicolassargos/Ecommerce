@@ -13,6 +13,8 @@ namespace Ecommerce.Business.Helpers
 
         public static ShoppingProductModel Create(ShoppingProduct product)
         {
+            if (product == null) return null;
+
             var productModel = new ShoppingProductModel
             {
                 id = product.Id,

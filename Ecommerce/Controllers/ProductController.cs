@@ -12,22 +12,35 @@ namespace Ecommerce.Controllers
     {
         ProductService productService = new ProductService();
 
-        [Route("name")]
-        //[Route("api/product/{name}")]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [Route("name/{name}")]
         [HttpGet]
         public IHttpActionResult GetProductByName(string name)
         {
         return Ok(productService.GetProductByName(name));
         }
-        [Route("partial")]
-        //[Route("api/product/partialname")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [Route("partial/{name}")]
         [HttpGet]
         public IHttpActionResult GetByPartialName(string name)
         {
             return Ok(productService.GetByPartialName(name));
         }
 
-        //[Route("api/product/productid")]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}")]
         [HttpGet]
         public IHttpActionResult GetProductById(int id)
@@ -35,16 +48,26 @@ namespace Ecommerce.Controllers
             return Ok(productService.GetProductById(id));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [Route("create")]
         [HttpPost]
-        public IHttpActionResult CreateProduct(ProductModel product)
+        public IHttpActionResult CreateProduct([FromBody]ProductModel product)
         {
             return Ok(productService.CreateProduct(product));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [Route("modify")]
         [HttpPut]
-        public IHttpActionResult ModifyProduct(ProductModel product)
+        public IHttpActionResult ModifyProduct([FromBody]ProductModel product)
         {
             try
             {
@@ -56,6 +79,11 @@ namespace Ecommerce.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("all")]
         [HttpGet]
         public IHttpActionResult GetAllProduct()

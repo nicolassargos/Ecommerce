@@ -12,6 +12,8 @@ namespace Ecommerce.Business.Helpers
     {
         public static CategoryModel Create(Category category)
         {
+            if (category == null) return null;
+
             var result = new CategoryModel
             {
                 id = category.Id,
@@ -32,6 +34,18 @@ namespace Ecommerce.Business.Helpers
             }
             
             return result;
+        }
+
+        public static CategoryModel CreateWithoutDependancy(Category category)
+        {
+            if (category == null) return null;
+
+            return new CategoryModel
+            {
+                id = category.Id,
+                name = category.Name,
+                parentCategoryId = (category.ParentCategory == null) ? 0 : category.ParentCategory.Id
+            };
         }
     }
 }

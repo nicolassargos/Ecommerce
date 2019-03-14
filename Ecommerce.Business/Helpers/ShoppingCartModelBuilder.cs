@@ -12,6 +12,8 @@ namespace Ecommerce.Business.Helpers
     {
         public static ShoppingCartModel Create(ShoppingCart cart)
         {
+            if (cart == null) return null;
+
             var cartModel = new ShoppingCartModel
             {
                 id = cart.Id,
