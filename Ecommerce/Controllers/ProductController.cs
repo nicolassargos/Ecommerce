@@ -65,7 +65,7 @@ namespace Ecommerce.Controllers
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        [Route("create")]
+        [Route("")]
         [HttpPost]
         public IHttpActionResult CreateProduct([FromBody]ProductModel product)
         {
