@@ -48,6 +48,13 @@ namespace Ecommerce.Controllers
             return Ok(productService.GetProductById(id));
         }
 
+        [Route("category/{categoryId}")]
+        [HttpGet]
+        public IHttpActionResult GetAllProductsByCategoryId(int categoryId)
+        {
+            return Ok(productService.GetAllProductsByCategory(categoryId));
+        }
+
         /// <summary>
         /// 
         /// </summary>

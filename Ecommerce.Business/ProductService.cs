@@ -64,6 +64,18 @@ namespace Ecommerce.Business
 
         }
 
+        public List<ProductModel> GetAllProductsByCategory(int id)
+        {
+            var productModelList = new List<ProductModel>();
+
+            foreach(var prod in _repository.GetAll().Where(prod => prod.Category?.Id == id))
+            {
+                productModelList.Add(ProductModelBuilder.Create(prod));
+            }
+
+            return productModelList;
+        }
+
         public ProductModel ModifyProduct(ProductModel productU)
         {
             Product productToUpdate = _repository.GetById(productU.id);
