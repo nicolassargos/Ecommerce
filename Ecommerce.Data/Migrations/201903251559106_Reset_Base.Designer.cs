@@ -7,13 +7,13 @@ namespace Ecommerce.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class v3 : IMigrationMetadata
+    public sealed partial class Reset_Base : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(v3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Reset_Base));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903141304011_v3"; }
+            get { return "201903251559106_Reset_Base"; }
         }
         
         string IMigrationMetadata.Source

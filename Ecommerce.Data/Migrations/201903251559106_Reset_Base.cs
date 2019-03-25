@@ -3,7 +3,7 @@ namespace Ecommerce.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class v1 : DbMigration
+    public partial class Reset_Base : DbMigration
     {
         public override void Up()
         {
@@ -68,9 +68,22 @@ namespace Ecommerce.Data.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        UserName = c.String(),
+                        Password = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.UserDetails",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         FirstName = c.String(),
                         Email = c.String(),
+                        Phone = c.String(),
+                        CreationDate = c.DateTime(nullable: false),
+                        CompanyName = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -88,6 +101,7 @@ namespace Ecommerce.Data.Migrations
             DropIndex("dbo.ShoppingCarts", new[] { "User_Id" });
             DropIndex("dbo.Products", new[] { "Category_Id" });
             DropIndex("dbo.Categories", new[] { "ParentCategory_Id" });
+            DropTable("dbo.UserDetails");
             DropTable("dbo.Users");
             DropTable("dbo.ShoppingProducts");
             DropTable("dbo.ShoppingCarts");

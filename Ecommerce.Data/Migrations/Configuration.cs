@@ -15,6 +15,8 @@ namespace Ecommerce.Data.Migrations
 
         protected override void Seed(Ecommerce.Data.EcommerceContext context)
         {
+            context.Database.ExecuteSqlCommand("DELETE FROM [ShoppingProducts]");
+
             context.Database.ExecuteSqlCommand("DELETE FROM [Products]");
             context.Database.ExecuteSqlCommand("DELETE FROM [Categories]");
 
@@ -29,7 +31,7 @@ namespace Ecommerce.Data.Migrations
 
             context.Database.ExecuteSqlCommand("ALTER TABLE [Products] CHECK CONSTRAINT ALL");
 
-
+            
 
 
             // Principales catégories
@@ -84,7 +86,11 @@ namespace Ecommerce.Data.Migrations
                 Category = context.Categories.First(x => x.Name == "Dell")
             });
 
-           
+
+            context.Database.ExecuteSqlCommand("ALTER TABLE [ShoppingProducts] NOCHECK CONSTRAINT ALL");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('ShoppingProducts', RESEED, 0)");
+            context.Database.ExecuteSqlCommand("ALTER TABLE [ShoppingProducts] CHECK CONSTRAINT ALL");
+
 
             context.SaveChanges();
 
