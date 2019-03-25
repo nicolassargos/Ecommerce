@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Business;
+using Ecommerce.Common;
 using Ecommerce.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ using System.Web.Http.Cors;
 
 namespace Ecommerce.Controllers
 {
+    [IdentityBasicAuthentication]
+    [Authorize]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/category")]
     public class CategoryController : ApiController
