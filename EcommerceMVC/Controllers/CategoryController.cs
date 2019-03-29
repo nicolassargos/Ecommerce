@@ -31,6 +31,10 @@ namespace EcommerceMVC.Controllers
         // GET: Category/Create
         public ActionResult Create()
         {
+            CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+            ViewBag.Categories = categoryService.GetAllCategories();
+
             return View();
         }
 
@@ -44,6 +48,7 @@ namespace EcommerceMVC.Controllers
 
                 var result = categoryService.CreateCategory(category);
 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -52,8 +57,38 @@ namespace EcommerceMVC.Controllers
             }
         }
 
-        // GET: Category/Edit/5
-        public ActionResult Edit(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ListBox2()
+        {
+            CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+            var result = categoryService.GetAllCategories();
+
+            List<SelectListItem> categoryItems = new List<SelectListItem>();
+
+            foreach (var ctg in result.Result)
+            {
+                categoryItems.Add(new SelectListItem() { Value = ctg.id.ToString(), Text = ctg.name });
+            }
+
+            ViewBag.categories = categoryItems;
+
+            return View();
+        }
+        public async Task<ActionResult> ListBox()
+        {
+            CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+            ViewBag.Categories = await categoryService.GetAllCategories();
+
+            return View();
+        }
+
+            // GET: Category/Edit/5
+            public ActionResult Edit(int id)
         {
             return View();
         }
