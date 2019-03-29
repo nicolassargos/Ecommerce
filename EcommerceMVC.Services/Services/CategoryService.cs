@@ -23,13 +23,14 @@ namespace EcommerceMVC.Services.Services
         public CategoryService(IUrlBuilder urlBuilder)
         {
             baseApiUrl = urlBuilder.BaseUrl;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
             //client.BaseAddress = new Uri(baseApiUrl);
         }
 
         public async Task<IEnumerable<CategoryModel>> GetAllCategories()
         {
             //var products = new List<ProductModel>();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
+            
             var result = await client.GetAsync(string.Concat(baseApiUrl, "category/all"));
 
             if (result.IsSuccessStatusCode)
@@ -37,6 +38,25 @@ namespace EcommerceMVC.Services.Services
                 IEnumerable<CategoryModel> categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(await result.Content.ReadAsStringAsync());
 
             return categories;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        public async Task<CategoryModel> CreateCategory(CategoryModel category)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(category), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync(string.Concat(baseApiUrl, "category"), content);
+
+            if (result.IsSuccessStatusCode)
+            {
+                CategoryModel newCategory = JsonConvert.DeserializeObject<CategoryModel>(await result.Content.ReadAsStringAsync());
+
+                return newCategory;
             }
 
             return null;

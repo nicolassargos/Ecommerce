@@ -1,4 +1,5 @@
 ﻿using EcommerceMVC.Helper;
+using EcommerceMVC.Models;
 using EcommerceMVC.Services.Services;
 using System;
 using System.Collections.Generic;
@@ -35,11 +36,13 @@ namespace EcommerceMVC.Controllers
 
         // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CategoryModel category)
         {
             try
             {
-                // TODO: Add insert logic here
+                CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+                var result = categoryService.CreateCategory(category);
 
                 return RedirectToAction("Index");
             }

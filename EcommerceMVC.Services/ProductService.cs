@@ -25,8 +25,9 @@ namespace EcommerceMVC.Services
             //var products = new List<ProductModel>();
 
             var result = await client.GetAsync(string.Concat(baseApiUrl, "product"));
-
             return result;
+
+
         }
     }
 }
