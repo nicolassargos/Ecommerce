@@ -7,17 +7,30 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace EcommerceMVC.Controllers
 {
-    public class ProductController : ApiController
+    public class ProductController : Controller
     {
         // GET: api/Product
-        public IHttpActionResult Get()
+        public async Task<ActionResult> Index(int? id)
         {
-            var service = new ProductService(new UrlBuilder());
-            
-            return Ok(service.GetProducts());
+            ProductService productService = new ProductService(new UrlBuilder());
+
+            var result = await productService.GetProducts(id ?? 0);
+
+            return View("Index", result);
+        }
+
+        public async Task<ActionResult> GetByName(string name)
+        {
+            ProductService productService = new ProductService(new UrlBuilder());
+
+            var result = await productService.GetProductByName(name);
+
+            return View("Index", result);
         }
 
         // GET: api/Product/5
