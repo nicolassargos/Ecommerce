@@ -56,5 +56,32 @@ namespace EcommerceMVC.Services
 
             return null;
         }
+
+
+        public async Task<ProductModel> EditProduct(int id)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
+
+            var result = await client.GetAsync(string.Concat(baseApiUrl, "product/" + id));
+            ProductModel product = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
+            return product;
+        }
+
+        public async Task<ProductModel> ModifyProduct(ProductModel product)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+            var result = await client.PutAsync(string.Concat(baseApiUrl, "product/modify"), content);
+
+            if (result.IsSuccessStatusCode)
+            {
+                ProductModel newProduct = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
+
+                return newProduct;
+            }
+
+            return null;
+        }
+
+
     }
 }
