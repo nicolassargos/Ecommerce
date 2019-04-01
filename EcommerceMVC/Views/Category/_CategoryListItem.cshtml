@@ -1,0 +1,97 @@
+﻿@model IEnumerable<EcommerceMVC.Models.CategoryModel>
+
+@*@foreach (var item in Model)
+    {
+        <li class="dropdown-item">
+            <a class="dropdown-item" href="#">@Html.DisplayFor(modelItem => item.name)</a>
+        </li>
+
+        @Html.DisplayFor(modelItem => item.id)
+
+    }*@
+<ul id="dropdown" class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+    
+</ul>
+    <script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:1292/category/getcategoryhierarchy/0',
+            dataType: 'json',
+            traditional: true,
+            success: function(data) {
+                $.each(data, function () {
+                    let isParent = true;
+                    if ((!this.subCategories) || (this.subCategories.length == 0)) isParent = false;
+
+                    // set id name
+                    let currentName = this.name.split(' ').join('').toLowerCase();
+
+                    $('#dropdown')
+                        .append(
+                            '<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
+                            '<a href="#" class="' + getLiClass(!isParent) + '">' + this.name + '</a>');
+
+
+                    if (!isParent) return;
+                    
+                    $('#' + currentName).append('<ul class="dropdown-menu">');
+                    let html = addItem(currentName, this.subCategories);
+                    alert(html);
+
+                });
+            }
+        });
+
+        var addItem = function (parent, categories) {
+            $.each(categories, function () {
+                let isParent = true;
+                if ((!this.subCategories) || (this.subCategories.length == 0)) isParent = false;
+
+                // set id name
+                let currentName = this.name.split(' ').join('').toLowerCase();
+
+                let html = '<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
+                            '<a href="#" class="' + getLiClass(!isParent) + '">' + this.name + '</a>';
+
+
+                if (!isParent) {
+                    html += '</li>';
+                    return html;
+                }
+
+
+                html += '<ul class="dropdown-menu">';
+                html += addItem(currentName, this.subCategories);
+                html += '</ul>';
+                html += '</li>';
+                return html;
+            });
+        }
+
+        //var addItem = function (parent, categories) {
+        //    $.each(categories, function () {
+        //        let isParent = true;
+        //        if ((!this.subCategories) || (this.subCategories.length == 0)) isParent = false;
+
+        //        // set id name
+        //        let currentName = this.name.split(' ').join('').toLowerCase();
+
+        //        $('#' + parent)
+        //            .append(
+        //                '<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
+        //                '<a href="#" class="' + getLiClass(!isParent) + '">' + this.name + '</a>');
+
+        //        if (!isParent) return;
+
+        //        $('#' + currentName).append('<ul class="dropdown-menu">');
+        //        return addItem(currentName, this.subCategories);
+        //    });
+        //}
+
+        function getLiClass(isParent) {
+            if (isParent === true) return 'dropdown-submenu';
+            return 'dropdown-item';
+        }
+    });
+    </script>

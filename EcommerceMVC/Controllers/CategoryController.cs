@@ -58,55 +58,31 @@ namespace EcommerceMVC.Controllers
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ListBox2()
-        {
-            CategoryService categoryService = new CategoryService(new UrlBuilder());
-
-            var result = categoryService.GetAllCategories();
-
-            List<SelectListItem> categoryItems = new List<SelectListItem>();
-
-            foreach (var ctg in result.Result)
-            {
-                categoryItems.Add(new SelectListItem() { Value = ctg.id.ToString(), Text = ctg.name });
-            }
-
-            ViewBag.categories = categoryItems;
-
-            return View();
-        }
-        public async Task<ActionResult> ListBox()
-        {
-            CategoryService categoryService = new CategoryService(new UrlBuilder());
-
-            ViewBag.Categories = await categoryService.GetAllCategories();
-
-            return View();
-        }
-
-            // GET: Category/Edit/5
-            public ActionResult Edit(int id)
+        // GET: Category/Edit/5
+        public ActionResult Edit(int id)
         {
             return View();
         }
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int Id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
+                CategoryModel category = new CategoryModel() { id = Id, parentCategoryId = int.Parse(collection.GetValue("parentCategoryId").AttemptedValue), name = collection.GetValue("name").AttemptedValue };
+
+                CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+                var result = categoryService.UpdateCategory(category);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                throw;
+                //return View();
             }
         }
 
@@ -130,6 +106,31 @@ namespace EcommerceMVC.Controllers
             {
                 return View();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("Category/GetCategoryHierarchy/{id}")]
+        public async Task<JsonResult> GetCategoryHierarchy(int id)
+        {
+            CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+            var result = await categoryService.GetCategoryHierarchy(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+            
+            //if (string.IsNullOrEmpty * ptypeid)
+            //    return Json(HttpNotFound());
+            //var categoryList = GetCategoryList(Convert.ToInt32(Ptypeid));
+            //var categoryData = categoryList.Select(m => new SelectListItem()
+            //{
+            //    Text = m.Name,
+            //    Value = m.Id.ToString()
+            //});
+            //return Json(categoryData, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -29,8 +29,6 @@ namespace EcommerceMVC.Services.Services
 
         public async Task<IEnumerable<CategoryModel>> GetAllCategories()
         {
-            //var products = new List<ProductModel>();
-            
             var result = await client.GetAsync(string.Concat(baseApiUrl, "category/all"));
 
             if (result.IsSuccessStatusCode)
@@ -38,6 +36,25 @@ namespace EcommerceMVC.Services.Services
                 IEnumerable<CategoryModel> categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(await result.Content.ReadAsStringAsync());
 
             return categories;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<CategoryModel>> GetCategoryHierarchy(int id)
+        {
+            var result = await client.GetAsync(string.Concat(baseApiUrl, "category"));
+
+            if (result.IsSuccessStatusCode)
+            {
+                IEnumerable<CategoryModel> categories = JsonConvert.DeserializeObject<IEnumerable<CategoryModel>>(await result.Content.ReadAsStringAsync());
+
+                return categories;
             }
 
             return null;
@@ -61,5 +78,21 @@ namespace EcommerceMVC.Services.Services
 
             return null;
         }
+
+        public async Task<CategoryModel> UpdateCategory(CategoryModel category)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(category), Encoding.UTF8, "application/json");
+            var result = await client.PutAsync(string.Concat(baseApiUrl, "category/", category.id.ToString()), content);
+
+            if (result.IsSuccessStatusCode)
+            {
+                CategoryModel newCategory = JsonConvert.DeserializeObject<CategoryModel>(await result.Content.ReadAsStringAsync());
+
+                return newCategory;
+            }
+
+            return null;
+        }
+
     }
 }
