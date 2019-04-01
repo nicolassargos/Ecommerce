@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,7 +37,10 @@
                     @Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    
+                    @Html.ActionLink("Admin", "Index", "Product", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Admin", "Index", "Product", null, new { @class = "nav-link" })
                 </li>
 
 
@@ -48,7 +56,7 @@
                     </div>
 
                 </li>
-                <li>@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -69,4 +77,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-</html>
+</html>*@
+
