@@ -1,97 +1,61 @@
-﻿@model IEnumerable<EcommerceMVC.Models.CategoryModel>
+﻿
+<ul id="dropdown" class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu"></ul>
 
-@*@foreach (var item in Model)
-    {
-        <li class="dropdown-item">
-            <a class="dropdown-item" href="#">@Html.DisplayFor(modelItem => item.name)</a>
-        </li>
-
-        @Html.DisplayFor(modelItem => item.id)
-
-    }*@
-<ul id="dropdown" class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-    
-</ul>
-    <script>
+<script>
     $(document).ready(function () {
+        // récupère les catégories sous forme hiérarchisée
+        // via un appel à l'API
         $.ajax({
             type: 'GET',
             url: 'http://localhost:1292/category/getcategoryhierarchy/0',
             dataType: 'json',
             traditional: true,
-            success: function(data) {
-                $.each(data, function () {
-                    let isParent = true;
-                    if ((!this.subCategories) || (this.subCategories.length == 0)) isParent = false;
-
-                    // set id name
-                    let currentName = this.name.split(' ').join('').toLowerCase();
-
-                    $('#dropdown')
-                        .append(
-                            '<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
-                            '<a href="#" class="' + getLiClass(!isParent) + '">' + this.name + '</a>');
-
-
-                    if (!isParent) return;
-                    
-                    $('#' + currentName).append('<ul class="dropdown-menu">');
-                    let html = addItem(currentName, this.subCategories);
-                    alert(html);
-
-                });
+            success: function (data) {
+                addItem($('#dropdown'), data);
             }
         });
 
+        // fonction récursive qui créé les éléments associés
+        // à chaque categorie
         var addItem = function (parent, categories) {
             $.each(categories, function () {
                 let isParent = true;
                 if ((!this.subCategories) || (this.subCategories.length == 0)) isParent = false;
 
                 // set id name
-                let currentName = this.name.split(' ').join('').toLowerCase();
+                let currentName = getIdName(this);
 
-                let html = '<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
-                            '<a href="#" class="' + getLiClass(!isParent) + '">' + this.name + '</a>';
+                // pour chaque catégorie
+                // on créé un élément "li"
+                // avec son lien associé
+                let li = $('<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
+                    '<a href="http://localhost:1292/category/GetProductsByCategory/' + this.id + '" class="' + getLiClass(!isParent) + '"><div>' + this.name + '</div></a></li>');
 
+                // attache la variable "li" à l'élément html parent
+                li.appendTo(parent);
 
-                if (!isParent) {
-                    html += '</li>';
-                    return html;
+                // si la catégorie est mère d'autres catégories
+                // on génère un élément "ul" pour afficher les
+                // sous-catégories associées et on rappelle la même fonction
+                if (isParent) {
+                    let ul = $('<ul class="dropdown-menu"></ul>');
+                    ul.appendTo(li);
+                    addItem(ul, this.subCategories);
                 }
-
-
-                html += '<ul class="dropdown-menu">';
-                html += addItem(currentName, this.subCategories);
-                html += '</ul>';
-                html += '</li>';
-                return html;
             });
         }
 
-        //var addItem = function (parent, categories) {
-        //    $.each(categories, function () {
-        //        let isParent = true;
-        //        if ((!this.subCategories) || (this.subCategories.length == 0)) isParent = false;
+        // sert à déterminer un Id pour les tags html
+        // à partir du label ("name")
+        var getIdName = function (element) {
+            return element.name.split(' ').join('').toLowerCase();
+        }
 
-        //        // set id name
-        //        let currentName = this.name.split(' ').join('').toLowerCase();
-
-        //        $('#' + parent)
-        //            .append(
-        //                '<li class="' + getLiClass(isParent) + '" role="menu" id="' + currentName + '">' +
-        //                '<a href="#" class="' + getLiClass(!isParent) + '">' + this.name + '</a>');
-
-        //        if (!isParent) return;
-
-        //        $('#' + currentName).append('<ul class="dropdown-menu">');
-        //        return addItem(currentName, this.subCategories);
-        //    });
-        //}
-
+        // renvoie une class CSS en fonction de
+        // si la catégorie possède des sous-catégories ou non
         function getLiClass(isParent) {
             if (isParent === true) return 'dropdown-submenu';
             return 'dropdown-item';
         }
     });
-    </script>
+</script>

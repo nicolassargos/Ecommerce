@@ -121,16 +121,19 @@ namespace EcommerceMVC.Controllers
             var result = await categoryService.GetCategoryHierarchy(id);
 
             return Json(result, JsonRequestBehavior.AllowGet);
-            
-            //if (string.IsNullOrEmpty * ptypeid)
-            //    return Json(HttpNotFound());
-            //var categoryList = GetCategoryList(Convert.ToInt32(Ptypeid));
-            //var categoryData = categoryList.Select(m => new SelectListItem()
-            //{
-            //    Text = m.Name,
-            //    Value = m.Id.ToString()
-            //});
-            //return Json(categoryData, JsonRequestBehavior.AllowGet);
+        }
+
+        //[Route("category/{id}")]
+        public async Task<ActionResult> GetProductsByCategory(int id)
+        {
+            CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+            var result = await categoryService.GetProductsByCategory(id);
+
+            if (result.Count() > 0)
+                ViewBag.CategoryName = result.First().categoryName ?? "";
+
+            return View(result);
         }
     }
 }

@@ -24,7 +24,6 @@ namespace EcommerceMVC.Services.Services
         {
             baseApiUrl = urlBuilder.BaseUrl;
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
-            //client.BaseAddress = new Uri(baseApiUrl);
         }
 
         public async Task<IEnumerable<CategoryModel>> GetAllCategories()
@@ -87,6 +86,26 @@ namespace EcommerceMVC.Services.Services
             if (result.IsSuccessStatusCode)
             {
                 CategoryModel newCategory = JsonConvert.DeserializeObject<CategoryModel>(await result.Content.ReadAsStringAsync());
+
+                return newCategory;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Retourne tous les produits d'une catégorie par son id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<ProductModel>> GetProductsByCategory(int id)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(id.ToString()), Encoding.UTF8, "application/json");
+            var result = await client.GetAsync(string.Concat(baseApiUrl, "product/category/", id.ToString()));
+
+            if (result.IsSuccessStatusCode)
+            {
+                IEnumerable<ProductModel> newCategory = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(await result.Content.ReadAsStringAsync());
 
                 return newCategory;
             }
