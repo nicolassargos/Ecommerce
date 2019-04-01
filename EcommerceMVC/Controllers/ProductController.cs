@@ -33,6 +33,30 @@ namespace EcommerceMVC.Controllers
             return View("Index", result);
         }
 
+        [System.Web.Mvc.HttpPost]
+        public ActionResult Create(ProductModel product)
+        {
+            try
+            {
+                ProductService productService = new ProductService(new UrlBuilder());
+
+                var result = productService.CreateProduct(product);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
+
         // GET: api/Product/5
         public string Get(int id)
         {
