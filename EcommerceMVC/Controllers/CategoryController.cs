@@ -29,11 +29,13 @@ namespace EcommerceMVC.Controllers
         }
 
         // GET: Category/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             CategoryService categoryService = new CategoryService(new UrlBuilder());
 
-            ViewBag.Categories = categoryService.GetAllCategories();
+            var result = await categoryService.GetAllCategories();
+
+            ViewBag.categories = result ?? new List<CategoryModel>();
 
             return View();
         }
@@ -47,7 +49,6 @@ namespace EcommerceMVC.Controllers
                 CategoryService categoryService = new CategoryService(new UrlBuilder());
 
                 var result = categoryService.CreateCategory(category);
-
 
                 return RedirectToAction("Index");
             }
