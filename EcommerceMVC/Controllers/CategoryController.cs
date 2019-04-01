@@ -50,11 +50,11 @@ namespace EcommerceMVC.Controllers
 
                 var result = categoryService.CreateCategory(category);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("CreateProduct");
             }
             catch
             {
-                return View();
+                return View("CreateProduct");
             }
         }
 

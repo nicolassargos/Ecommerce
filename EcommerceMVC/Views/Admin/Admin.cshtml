@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,9 +11,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 
 </head>
 <body>
@@ -35,36 +37,33 @@
                     @Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    
+                    @Html.ActionLink("Admin", "Index", "Product", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Admin", "Index", "Product", null, new { @class = "nav-link" })
                 </li>
 
 
                 <li class="nav-item dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown
-                    </button>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
 
-                        @Html.Partial("~/Views/Category/_CategoryListItem.cshtml")
-
-                        @*<li class="dropdown-item">
-                            <a href="#">Action</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="#">Another action</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="#">Something else here</a>
-                        </li>*@
                 </li>
 
-
-                <li>@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
+
     </nav>
     <div class="container body-content">
         @RenderBody()
@@ -74,5 +73,9 @@
         </footer>
     </div>
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
-</html>
+</html>*@
+

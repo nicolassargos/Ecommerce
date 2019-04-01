@@ -22,7 +22,7 @@ namespace EcommerceMVC.Services
             baseApiUrl = urlBuilder.BaseUrl;
         }
 
-
+        // produits par ID
         public async  Task<ProductModel> GetProducts(int id)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
@@ -32,6 +32,7 @@ namespace EcommerceMVC.Services
             return product;
         }
         
+        //produit par nom
         public async Task<ProductModel> GetProductByName(string name)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
@@ -40,5 +41,47 @@ namespace EcommerceMVC.Services
             ProductModel product = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
             return product;
         }
+
+        public async Task<ProductModel> CreateProduct(ProductModel product)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync(string.Concat(baseApiUrl, "product"), content);
+
+            if (result.IsSuccessStatusCode)
+            {
+                ProductModel newProduct = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
+
+                return newProduct;
+            }
+
+            return null;
+        }
+
+
+        public async Task<ProductModel> EditProduct(int id)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
+
+            var result = await client.GetAsync(string.Concat(baseApiUrl, "product/" + id));
+            ProductModel product = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
+            return product;
+        }
+
+        public async Task<ProductModel> ModifyProduct(ProductModel product)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
+            var result = await client.PutAsync(string.Concat(baseApiUrl, "product/modify"), content);
+
+            if (result.IsSuccessStatusCode)
+            {
+                ProductModel newProduct = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
+
+                return newProduct;
+            }
+
+            return null;
+        }
+
+
     }
 }
