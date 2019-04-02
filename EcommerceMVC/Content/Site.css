@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 20px;
 }
 
@@ -77,4 +77,31 @@ a.dropdown-submenu, .dropdown-item {
             -webkit-border-radius: 6px 0 6px 6px;
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
+        }
+
+
+
+
+ /*<!-- section PAGER -->*/
+
+div.pager {
+    text-align: center;
+    margin: 1em 0;
+}
+
+    div.pager span {
+        display: inline-block;
+        width: 1.8em;
+        height: 1.8em;
+        line-height: 1.8;
+        text-align: center;
+        cursor: pointer;
+        background: #216aaf;
+        color: #fff;
+        margin-right: 0.5em;
+    }
+
+        div.pager span.active {
+            background: #e6f1fb;
+            color: #216aaf;
         }

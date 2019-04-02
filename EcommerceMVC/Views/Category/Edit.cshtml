@@ -4,7 +4,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CategoryModel</h4>
         <hr />
@@ -22,8 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.parentCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.parentCategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.parentCategoryId, "", new { @class = "text-danger" })
+                @Html.Partial("_CategorySelect", Model)
             </div>
         </div>
 

@@ -1,0 +1,30 @@
+﻿@model EcommerceMVC.Models.CategoryModel
+
+<select id="selectParentCatory" name="parentCategoryId" class="custom-select"></select>
+
+
+<script>
+    $(document).ready(function () {
+        // récupère les catégories sous forme plate
+        // via un appel à l'API
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:1292/category/GetCategories',
+            dataType: 'json',
+            traditional: true,
+            success: function (data) {
+                addCategory($('#selectParentCatory'), data);
+            }
+        }).done(function () {
+            $("#selectParentCatory").val(@Model.parentCategoryId);
+        });
+
+
+        var addCategory = function (selectElement, data) {
+            $.each(data, function () {
+                let option = $('<option value="' + this.id + '">' + this.name + '</option>');
+                option.appendTo(selectElement);
+            })
+        }
+    })
+</script>

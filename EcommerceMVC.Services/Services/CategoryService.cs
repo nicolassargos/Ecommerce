@@ -60,6 +60,26 @@ namespace EcommerceMVC.Services.Services
         }
 
         /// <summary>
+        /// Return a Category by its Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<CategoryModel> GetCategoryById(int id)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(id.ToString()), Encoding.UTF8, "application/json");
+            var result = await client.GetAsync(string.Concat(baseApiUrl, "category/", id.ToString()));
+
+            if (result.IsSuccessStatusCode)
+            {
+                CategoryModel newCategory = JsonConvert.DeserializeObject<CategoryModel>(await result.Content.ReadAsStringAsync());
+
+                return newCategory;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="category"></param>

@@ -10,35 +10,67 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.parentCategoryId)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-striped" id="tableCategories" style="table-layout: fixed">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.parentCategoryId)
-            </td>
-            <td>
-                @using (Html.BeginForm("Delete", "Category"))
-                {
-                    <button type="submit" class="btn btn-outline-danger float-right" style="margin-left:10px;" value="Delete">Delete</button>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary float-right" })
-                    @Html.Hidden("id", item.id)
-                }
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.parentCategoryId)
+            </th>*@
+            <th></th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.parentCategoryId)
+                </td>*@
+                <td>
+                    @using (Html.BeginForm("Delete", "Category"))
+                    {
+                        <button type="submit" class="btn btn-outline-danger float-right" style="margin-left:10px;" value="Delete">Delete</button>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary float-right" })
+                        @Html.Hidden("id", item.id)
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<script>
+    $(document).ready(function () {
+
+        $('#tableCategories').each(function () {
+            var currentPage = 0;
+            var numPerPage = 9;
+            var $table = $(this);
+            $table.bind('repaginate', function () {
+                $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+            });
+            $table.trigger('repaginate');
+            var numRows = $table.find('tbody tr').length;
+            var numPages = Math.ceil(numRows / numPerPage);
+            var $pager = $('<div class="pager"></div>');
+            for (var page = 0; page < numPages; page++) {
+                $('<span class="page-number"></span>').text(page + 1).bind('click', {
+                    newPage: page
+                }, function (event) {
+                    currentPage = event.data['newPage'];
+                    $table.trigger('repaginate');
+                    $(this).addClass('active').siblings().removeClass('active');
+                }).appendTo($pager).addClass('clickable');
+            }
+
+            $pager.insertAfter($table).find('span.page-number:first').addClass('active');
+
+        });
+    });
+</script>
