@@ -17,31 +17,58 @@ namespace EcommerceMVC.Services
         string baseApiUrl { get; }
         HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="urlBuilder"></param>
         public ProductService(IUrlBuilder urlBuilder)
         {
             baseApiUrl = urlBuilder.BaseUrl;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
         }
 
-        // produits par ID
-        public async  Task<ProductModel> GetProducts(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<ProductModel>> GetAllProducts()
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
+            var result = await client.GetAsync(string.Concat(baseApiUrl, "product/all"));
+            IEnumerable<ProductModel> products = JsonConvert.DeserializeObject< IEnumerable<ProductModel>>(await result.Content.ReadAsStringAsync());
+            return products;
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // produits par ID
+        public async  Task<ProductModel> GetProduct(int id)
+        {
             var result = await client.GetAsync(string.Concat(baseApiUrl, "product/" +id));
             ProductModel product = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
             return product;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         //produit par nom
         public async Task<ProductModel> GetProductByName(string name)
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
-
             var result = await client.GetAsync(string.Concat(baseApiUrl, "product/partial/" + name));
             ProductModel product = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
             return product;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task<ProductModel> CreateProduct(ProductModel product)
         {
             var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
@@ -57,16 +84,23 @@ namespace EcommerceMVC.Services
             return null;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ProductModel> EditProduct(int id)
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
-
             var result = await client.GetAsync(string.Concat(baseApiUrl, "product/" + id));
             ProductModel product = JsonConvert.DeserializeObject<ProductModel>(await result.Content.ReadAsStringAsync());
             return product;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public async Task<ProductModel> ModifyProduct(ProductModel product)
         {
             var content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");

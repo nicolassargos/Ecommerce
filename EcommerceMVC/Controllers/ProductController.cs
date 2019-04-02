@@ -14,12 +14,12 @@ namespace EcommerceMVC.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: api/Product
-        public async Task<ActionResult> Index(int? id)
-        {
-            ProductService productService = new ProductService(new UrlBuilder());
+        ProductService productService = new ProductService(new UrlBuilder());
 
-            var result = await productService.GetProducts(id ?? 0);
+        // GET: api/Product
+        public async Task<ActionResult> Index()
+        {
+            var result = await productService.GetAllProducts();
 
             return View("Index", result);
         }
@@ -27,22 +27,18 @@ namespace EcommerceMVC.Controllers
         // GET by name
         public async Task<ActionResult> GetByName(string name)
         {
-            ProductService productService = new ProductService(new UrlBuilder());
-
             var result = await productService.GetProductByName(name);
-
+            
             return View("Index", result);
         }
 
         //Create Product
         [System.Web.Mvc.HttpPost]
-        public ActionResult Create(ProductModel product)
+        public async Task<ActionResult> Create(ProductModel product)
         {
             try
             {
-                ProductService productService = new ProductService(new UrlBuilder());
-
-                var result = productService.CreateProduct(product);
+                var result = await productService.CreateProduct(product);
 
                 return RedirectToAction("Index");
             }
@@ -56,53 +52,52 @@ namespace EcommerceMVC.Controllers
         //show created product
         public ActionResult Create()
         {
-            return View();
+            ViewBag.selectId = "categoryId";
+
+            return View(new ProductModel());
         }
 
         [System.Web.Mvc.HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
-            ProductService productService = new ProductService(new UrlBuilder());
-
-            var result = await productService.GetProducts(id ?? 0);
-
-            return View("Edit", result); 
+            var result = await productService.GetProduct(id ?? 0);
+            ViewBag.selectId = "categoryId";
+            return View("Edit", result);
         }
 
         [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> Edit(int Id, FormCollection collection)
         {
-            ProductService productService = new ProductService(new UrlBuilder());
             try
             {
-                ProductModel productModel = new ProductModel
+                ProductModel productModel = new ProductModel()
                 {
                     id = Id,
                     categoryId = int.Parse(collection.GetValue("categoryId").AttemptedValue),
-                    categoryName = collection.GetValue("categoryName").AttemptedValue,
                     name = collection.GetValue("name").AttemptedValue,
                     description = collection.GetValue("description").AttemptedValue,
                     price = decimal.Parse(collection.GetValue("price").AttemptedValue),
-                    publicationDate = DateTime.Parse(collection.GetValue("publicationdate").AttemptedValue),
-                    
+                    publicationDate = DateTime.Parse(collection.GetValue("publicationdate").AttemptedValue)
                 };
 
                 var result = await productService.ModifyProduct(productModel);
 
-                return View("Edit", result);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                throw;
             }
            
         }
 
 
         // GET: api/Product/5
-        public string Get(int id)
+        public async Task<ViewResult> Details(int id)
         {
-            return "value";
+            var result = await productService.GetProduct(id);
+
+            return View("Details", result);
         }
 
         // POST: api/Product
