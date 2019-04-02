@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Category";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Category</h2>
@@ -31,9 +31,12 @@
                 @Html.DisplayFor(modelItem => item.parentCategoryId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                @using (Html.BeginForm("Delete", "Category"))
+                {
+                    <button type="submit" class="btn btn-outline-danger float-right" style="margin-left:10px;" value="Delete">Delete</button>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary float-right" })
+                    @Html.Hidden("id", item.id)
+                }
             </td>
         </tr>
     }

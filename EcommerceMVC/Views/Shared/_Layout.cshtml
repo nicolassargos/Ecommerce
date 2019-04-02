@@ -31,34 +31,15 @@
                 <li class="nav-item">
                     @Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    
-                </li>
-
-
                 <li class="nav-item dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Categories
-                    </button>
-
-                        @Html.Partial("~/Views/Category/_CategoryListItem.cshtml")
-
-                        @*<li class="dropdown-item">
-                            <a href="#">Action</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="#">Another action</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="#">Something else here</a>
-                        </li>*@
+                    </a>
+                    @Html.Partial("~/Views/Category/_CategoryListItem.cshtml")
                 </li>
-
-
-                <li>@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</li>
+                <li>
+                    @Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

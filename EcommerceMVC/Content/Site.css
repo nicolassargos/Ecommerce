@@ -24,6 +24,10 @@ textarea {
 }
 
 
+.dropdown {
+    cursor: pointer;
+}
+
 .dropdown-submenu {
     position: relative;
 }
@@ -74,14 +78,3 @@ a.dropdown-submenu, .dropdown-item {
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
-    /*.dropdown-item {
-        display: initial;
-        width: auto;
-        padding: 0;
-    }
-
-    a.dropdown-item > div {
-        padding: 0.25rem 1rem;
-        width: 100%;
-    }*/

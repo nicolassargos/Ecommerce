@@ -4,6 +4,7 @@ using EcommerceMVC.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -70,7 +71,6 @@ namespace EcommerceMVC.Controllers
         {
             try
             {
-                // TODO: Add update logic here
                 CategoryModel category = new CategoryModel() { id = Id, parentCategoryId = int.Parse(collection.GetValue("parentCategoryId").AttemptedValue), name = collection.GetValue("name").AttemptedValue };
 
                 CategoryService categoryService = new CategoryService(new UrlBuilder());
@@ -89,22 +89,26 @@ namespace EcommerceMVC.Controllers
         // GET: Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+                return View();
         }
 
         // POST: Category/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<ActionResult> Delete(int id, FormCollection collection)
         {
+            HttpResponseMessage result = new HttpResponseMessage();
+
             try
             {
-                // TODO: Add delete logic here
+                CategoryService categoryService = new CategoryService(new UrlBuilder());
+
+                result = await categoryService.DeleteCategory(id);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(result);
             }
         }
 

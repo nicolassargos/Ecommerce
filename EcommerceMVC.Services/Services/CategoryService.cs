@@ -113,5 +113,23 @@ namespace EcommerceMVC.Services.Services
             return null;
         }
 
+        public async Task<HttpResponseMessage> DeleteCategory(int id)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(id.ToString()), Encoding.UTF8, "application/json");
+            var result = await client.DeleteAsync(string.Concat(baseApiUrl, "category/", id.ToString()));
+
+            return result;
+
+            //if (!result.IsSuccessStatusCode)
+            //{
+
+                //IEnumerable<ProductModel> newCategory = JsonConvert.DeserializeObject<IEnumerable<ProductModel>>(await result.Content.ReadAsStringAsync());
+
+                //return newCategory;
+            //}
+
+            //return null;
+        }
+
     }
 }
