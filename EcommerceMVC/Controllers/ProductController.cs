@@ -62,6 +62,7 @@ namespace EcommerceMVC.Controllers
         {
             var result = await productService.GetProduct(id ?? 0);
             ViewBag.selectId = "categoryId";
+            ViewBag.categoryId = result.categoryId;
             return View("Edit", result);
         }
 

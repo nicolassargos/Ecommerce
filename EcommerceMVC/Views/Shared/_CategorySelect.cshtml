@@ -1,6 +1,4 @@
-﻿@*@model EcommerceMVC.Models.CategoryModel*@
-
-<select id="selectParentCatory" name="@ViewBag.selectId" class="custom-select"></select>
+﻿<select id="selectParentCatory" name="@ViewBag.selectId" class="custom-select"></select>
 
 
 <script>
@@ -16,7 +14,7 @@
                 addCategory($('#selectParentCatory'), data);
             }
         }).done(function () {
-            $("#selectParentCatory").val(@ViewBag.parentCategoryId);
+            $("#selectParentCatory").val(@ViewBag.categoryId);
         });
 
 

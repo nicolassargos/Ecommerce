@@ -78,7 +78,8 @@ namespace EcommerceMVC.Controllers
         public async  Task<ActionResult> Edit(int id)
         {
             var result = await categoryService.GetCategoryById(id);
-
+            ViewBag.selectId = "parentCategoryId";
+            ViewBag.categoryId = result.parentCategoryId;
             return View(result);
         }
 
