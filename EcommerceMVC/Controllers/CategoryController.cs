@@ -1,4 +1,5 @@
-﻿using EcommerceMVC.Helper;
+﻿using Ecommerce.Common;
+using EcommerceMVC.Helper;
 using EcommerceMVC.Models;
 using EcommerceMVC.Services.Services;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace EcommerceMVC.Controllers
 {
+    [IdentityBasicAuthentication]
     public class CategoryController : Controller
     {
         CategoryService categoryService = new CategoryService(new UrlBuilder());
@@ -20,6 +22,7 @@ namespace EcommerceMVC.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Category
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var result = await categoryService.GetAllCategories();
@@ -33,6 +36,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Category/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             return View();
@@ -43,6 +47,7 @@ namespace EcommerceMVC.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Category/Create
+        //[Authorize]
         public ActionResult Create()
         {
             return View(new CategoryModel());
@@ -54,6 +59,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="category"></param>
         /// <returns></returns>
         // POST: Category/Create
+        //[Authorize]
         [HttpPost]
         public async Task<ActionResult> Create(CategoryModel category)
         {
@@ -75,6 +81,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Category/Edit/5
+        //[Authorize]
         public async  Task<ActionResult> Edit(int id)
         {
             var result = await categoryService.GetCategoryById(id);
@@ -90,6 +97,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="collection"></param>
         /// <returns></returns>
         // POST: Category/Edit/5
+        //[Authorize]
         [HttpPost]
         public ActionResult Edit(int Id, FormCollection collection)
         {
@@ -114,6 +122,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Category/Delete/5
+        //[Authorize]
         public ActionResult Delete(int id)
         {
                 return View();
@@ -126,6 +135,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="collection"></param>
         /// <returns></returns>
         // POST: Category/Delete/5
+        //[Authorize]
         [HttpPost]
         public async Task<ActionResult> Delete(int id, FormCollection collection)
         {
@@ -149,6 +159,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Route("Category/GetCategoryHierarchy/{id}")]
+        [AllowAnonymous]
         public async Task<JsonResult> GetCategoryHierarchy(int id)
         {
             var result = await categoryService.GetCategoryHierarchy(id);
@@ -161,6 +172,7 @@ namespace EcommerceMVC.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("Category/GetCategories")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<JsonResult> GetCategories()
         {
@@ -175,6 +187,7 @@ namespace EcommerceMVC.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public async Task<ActionResult> GetProductsByCategory(int id)
         {
             var result = await categoryService.GetProductsByCategory(id);
