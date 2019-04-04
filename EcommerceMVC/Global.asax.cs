@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EcommerceMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -17,7 +18,11 @@ namespace EcommerceMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
 
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session.Add("userCredentials", new AccountModel());
         }
     }
 }

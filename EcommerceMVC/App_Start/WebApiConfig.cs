@@ -1,6 +1,8 @@
-﻿using System;
+﻿using EcommerceMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace EcommerceMVC
@@ -16,6 +18,7 @@ namespace EcommerceMVC
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
         }
     }
 }

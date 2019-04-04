@@ -55,7 +55,7 @@
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\ShoppingProductModel.cs" />
     <Compile Include="Models\UserDetailsModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

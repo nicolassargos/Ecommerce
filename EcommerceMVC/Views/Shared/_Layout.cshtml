@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using EcommerceMVC.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,7 +27,19 @@
                 <li class="nav-item">
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
-
+                <li>
+                    @if (!((AccountModel)(Session["userCredentials"])).IsAuthenticated)
+                    {
+                        @Html.ActionLink("Sign In", "Login", "Account", null, new { @class = "nav-link" })
+                    }
+                    else
+                    {
+                    <span>
+                        Welcome, @(((AccountModel)(Session["userCredentials"])).Login) 
+                    </span>
+                        @Html.ActionLink("Sign Out", "Logout", "Account", null, new { @class = "nav-link" })
+                    }
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Categories

@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace EcommerceMVC.Models
 {
-    public class UserModel
+    public class AccountModel
     {
         public int Id { get; set; }
         public string Login { get; set; }
-        public string Password  { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+        public bool IsAuthenticated { get; set; }
+        public string Credentials => Convert.ToBase64String((Encoding.ASCII.GetBytes($"{Login}:{Password}")));
     }
 }
