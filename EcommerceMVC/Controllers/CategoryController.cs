@@ -5,6 +5,7 @@ using EcommerceMVC.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -47,7 +48,7 @@ namespace EcommerceMVC.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Category/Create
-        //[Authorize]
+        [Authorize(Roles="Admin")]
         public ActionResult Create()
         {
             return View(new CategoryModel());
@@ -81,7 +82,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Category/Edit/5
-        //[Authorize]
+        [Authorize]
         public async  Task<ActionResult> Edit(int id)
         {
             var result = await categoryService.GetCategoryById(id);

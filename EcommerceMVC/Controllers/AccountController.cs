@@ -43,7 +43,13 @@ namespace EcommerceMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //[Authorize]
+        public ActionResult Logout()
+        {
+            accountService.Logout();
 
+            return RedirectToAction("Index", "Home");
+        }
 
 
 
