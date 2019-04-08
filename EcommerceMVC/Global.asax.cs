@@ -1,4 +1,5 @@
-﻿using EcommerceMVC.Models;
+﻿using EcommerceMVC.Infrastructure;
+using EcommerceMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,6 +19,7 @@ namespace EcommerceMVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(ShoppingCartModel), new CartModelBinder());
         }
 
         protected void Session_Start(object sender, EventArgs e)

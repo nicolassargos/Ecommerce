@@ -16,12 +16,13 @@ using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 namespace EcommerceMVC.Controllers
 {
     [IdentityBasicAuthentication]
+    [AllowAnonymous]
     public class ProductController : Controller
     {
         ProductService productService = new ProductService(new UrlBuilder());
 
         // GET: api/Product
-        [AllowAnonymous]
+        
         public async Task<ActionResult> Index()
         {
             var result = await productService.GetAllProducts();
@@ -30,7 +31,6 @@ namespace EcommerceMVC.Controllers
         }
 
         // GET by name
-        [AllowAnonymous]
         public async Task<ActionResult> GetByName(string name)
         {
             var result = await productService.GetProductByName(name);
@@ -39,7 +39,6 @@ namespace EcommerceMVC.Controllers
         }
 
         //Create Product
-        [Authorize]
         [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> Create(ProductModel product)
         {
@@ -57,7 +56,6 @@ namespace EcommerceMVC.Controllers
 
 
         //show created product
-        [Authorize]
         public ActionResult Create()
         {
             ViewBag.selectId = "categoryId";
@@ -66,7 +64,6 @@ namespace EcommerceMVC.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             var result = await productService.GetProduct(id ?? 0);
@@ -76,7 +73,6 @@ namespace EcommerceMVC.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        [Authorize]
         public async Task<ActionResult> Edit(int Id, FormCollection collection)
         {
             try
@@ -104,11 +100,10 @@ namespace EcommerceMVC.Controllers
 
 
         // GET: api/Product/5
-        [AllowAnonymous]
         public async Task<ViewResult> Details(int id)
         {
             var result = await productService.GetProduct(id);
-
+            ViewBag.qtd = 1;
             return View("Details", result);
         }
 

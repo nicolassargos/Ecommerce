@@ -5,41 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h2 class="my-5">Details : @Model.name</h2>
+<h2 class="my-5">Details : @Model.name</h2>
+@using (Html.BeginForm("AddToCart", "Cart", new { productId = @Model.id, quantity = @ViewBag.qtd, returnUrl = Request.Url.AbsoluteUri }, FormMethod.Post))
+{
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.price)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.price)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.publicationDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.publicationDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.publicationDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.publicationDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.categoryName)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.categoryName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.categoryName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.categoryName)
-        </dd>
+        </dl>
+    </div>
+    <div class="form-inline">
+        <button id="btnIncrement" type="button" onclick="increment()" class="btn btn-dark">+</button>
+        <input name="quantity" type="text" value= "@ViewBag.qtd" class="form-control"/>
+        <button id="btnDecrement" type="button" onclick="decrement()" class="btn btn-dark">-</button>
+    </div>
 
-    </dl>
-</div>
+    <button type="submit" value="Create">Add to Cart</button>
+}
+
+
+<script>
+    var increment = function () {
+        let oldValue = $('#quantity').val();
+        $('#quantity').val(parseFloat(oldValue) + 1);
+    };
+
+    var decrement = function () {
+        let oldValue = $('#quantity').val();
+        if (oldValue > 0)
+            $('#quantity').val(parseFloat(oldValue) - 1);
+    };
+</script>
