@@ -63,5 +63,23 @@ namespace EcommerceMVC.Controllers
 
             return RedirectToAction("Index", new { returnUrl });
         }
+
+        [HttpPost]
+        [Route("/proceedPayment")]
+        public async Task<ActionResult> ProceedPayment(ShoppingCartModel cart)
+        {
+            string redirectUrl = "";
+
+            try
+            {
+                redirectUrl = await service.GetPaymentAuthorizationId(cart);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return Redirect(redirectUrl);
+        }
     }
 }

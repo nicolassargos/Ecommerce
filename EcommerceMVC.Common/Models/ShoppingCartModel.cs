@@ -14,5 +14,19 @@ namespace EcommerceMVC.Models
         public int id { get; set; }
         public int userId { get; set; }
         public List<ShoppingProductModel> shoppingProducts { get; set; }
+        public decimal totalAmount
+        {
+            get
+            {
+                if (shoppingProducts.Count == 0) return 0L;
+
+                decimal total = 0;
+                foreach (var elt in shoppingProducts)
+                {
+                    total += elt.pricePerUnit * elt.quantity;
+                }
+                return total;
+            }
+        }
     }
 }

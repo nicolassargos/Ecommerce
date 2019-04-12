@@ -15,6 +15,8 @@ namespace EcommerceMVC.Services.Services
     {
         string baseApiUrl { get; }
         HttpClient client = new HttpClient();
+        string paymentApiUrl = "https://localhost:44348/";
+        string paymentMvcUrl = "https://localhost:44387/";
 
         public CartService(IUrlBuilder urlBuilder)
         {
@@ -31,6 +33,45 @@ namespace EcommerceMVC.Services.Services
         public void RemoveItems(ShoppingCartModel cart, int productId, int quantity)
         {
             throw new NotImplementedException();
+        }
+
+        //TODO: créer un service Payment
+        public async Task<string> GetPaymentAuthorizationId(ShoppingCartModel cart)
+        {
+
+            string apiUrl = string.Concat(paymentApiUrl, "api/Payments");
+
+            var payment = new PaymentModel()
+            {
+                expiryDate = DateTime.Now,
+                paymentAmount = cart.totalAmount
+            };
+
+
+            var json = JsonConvert.SerializeObject(payment);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage result;
+
+            try
+            {
+                result = await client.PostAsync(apiUrl, content);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            string paymentAuthId="";
+
+            if (result.IsSuccessStatusCode)
+            {
+                paymentAuthId = await result.Content.ReadAsStringAsync();
+            }
+
+            var redirectUrl = $"{paymentMvcUrl}Payment?paymentId={paymentAuthId}";
+
+            return (redirectUrl);
         }
     }
 }

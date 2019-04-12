@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ecommerce.Common">
-      <HintPath>..\..\EcommerceAPI\Ecommerce.Common\bin\Debug\Ecommerce.Common.dll</HintPath>
+      <HintPath>..\Ecommerce.Common\bin\Debug\Ecommerce.Common.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -51,6 +51,7 @@
     <Compile Include="IUrlBuilder.cs" />
     <Compile Include="Models\CategoryHierarchyModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\ShoppingProductModel.cs" />

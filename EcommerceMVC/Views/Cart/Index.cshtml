@@ -10,50 +10,55 @@
 <div>
     <h4>CartIndexViewModel</h4>
     <hr />
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().name)</th>
-                <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().pricePerUnit)</th>
-                <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().quantity)</th>
-                <th>SubTotal</th>
-            </tr>
-        </thead>
+    @using (Html.BeginForm("ProceedPayment", "Cart", "POST"))
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().name)</th>
+                    <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().pricePerUnit)</th>
+                    <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().quantity)</th>
+                    <th>SubTotal</th>
+                </tr>
+            </thead>
 
-        <tbody>
-        @foreach (var prod in Model.Cart.shoppingProducts)
-        {
-            <tr>
-                <td>
-                    @Html.LabelFor(model => prod.name)
-                </td>
-                <td>
-                    @Html.LabelFor(model => prod.pricePerUnit)
-                </td>
-                <td>
-                    @Html.LabelFor(model => prod.quantity)
-                </td>
-                <td>
-                    <label>@(prod.pricePerUnit * prod.quantity)</label>
-              </td>
-          </tr>
-        }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>Total:</td>
-                <td>
-                    @Model.Cart.shoppingProducts.Sum(prd => prd.quantity * prd.pricePerUnit)
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+            <tbody>
+                @foreach (var prod in Model.Cart.shoppingProducts)
+                {
+                    <tr>
+                        <td>
+                            @Html.LabelFor(model => @prod.name)
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => @prod.pricePerUnit)
+                        </td>
+                        <td>
+                            @Html.LabelFor(model => @prod.quantity)
+                        </td>
+                        <td>
+                            <label>@(prod.pricePerUnit * prod.quantity)</label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td>
+                        @Model.Cart.shoppingProducts.Sum(prd => prd.quantity * prd.pricePerUnit)
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="mr-auto">
+            <button type="submit" value="Create" class="btn btn-default">Check out</button>
+        </div>
+    }
+
 </div>
-<div class="mr-auto">
-    
-</div>
+
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>
