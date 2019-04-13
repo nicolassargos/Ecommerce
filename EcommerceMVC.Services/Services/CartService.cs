@@ -9,19 +9,21 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceMVC.Services.Services
+namespace EcommerceMVC.Services
 {
     public class CartService
     {
         string baseApiUrl { get; }
         HttpClient client = new HttpClient();
-        string paymentApiUrl = "https://localhost:44348/";
+        string paymentApiUrl = "http://localhost:51675/";
         string paymentMvcUrl = "https://localhost:44387/";
+        AccountService accountService;
 
         public CartService(IUrlBuilder urlBuilder)
         {
             baseApiUrl = urlBuilder.BaseUrl;
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
+            accountService = new AccountService(urlBuilder);
         }
 
         public async void AddItems(ShoppingCartModel cart, int productId, int quantity)
@@ -73,5 +75,15 @@ namespace EcommerceMVC.Services.Services
 
             return (redirectUrl);
         }
+
+        
+        //public CheckOutModel GetCheckOut(ShoppingCartModel cart)
+        //{
+        //    var checkOut = new CheckOutModel();
+
+        //    checkOut.Cart = cart;
+
+        //    return checkOut;
+        //}
     }
 }

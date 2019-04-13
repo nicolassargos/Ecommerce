@@ -1,7 +1,6 @@
 ﻿using EcommerceMVC.Helper;
 using EcommerceMVC.Models;
 using EcommerceMVC.Services;
-using EcommerceMVC.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +28,12 @@ namespace EcommerceMVC.Controllers
                 ReturnUrl = returnUrl,
                 Cart = cart
             });
+        }
+
+        [HttpPost]
+        public RedirectToRouteResult Index(ShoppingCartModel cart)
+        {
+            return RedirectToAction("CheckOut", cart);
         }
 
         /// <summary>
@@ -64,9 +69,19 @@ namespace EcommerceMVC.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
+
+        [HttpGet]
+        public ViewResult CheckOut(ShoppingCartModel cart)
+        {
+            var checkOut = new CheckOutModel();
+
+            checkOut.Cart = cart;
+
+            return View(checkOut);
+        }
+
         [HttpPost]
-        [Route("/proceedPayment")]
-        public async Task<ActionResult> ProceedPayment(ShoppingCartModel cart)
+        public async Task<ActionResult> ProcessPayment(ShoppingCartModel cart)
         {
             string redirectUrl = "";
 

@@ -12,7 +12,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 
-namespace EcommerceMVC.Services.Services
+namespace EcommerceMVC.Services
 {
     public class CategoryService
     {

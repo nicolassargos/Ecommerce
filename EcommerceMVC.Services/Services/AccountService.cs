@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
 
-namespace EcommerceMVC.Controllers
+namespace EcommerceMVC.Services
 {
     public class AccountService
     {

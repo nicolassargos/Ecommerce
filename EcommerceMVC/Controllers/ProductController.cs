@@ -108,12 +108,12 @@ namespace EcommerceMVC.Controllers
         }
 
         // POST: api/Product
-        public void Post([FromBody]string value)
+        public void Post(string value)
         {
         }
 
         // PUT: api/Product/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, string value)
         {
         }
 
