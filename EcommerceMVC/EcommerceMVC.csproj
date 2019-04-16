@@ -47,9 +47,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ecommerce.Authentication">
-      <HintPath>..\..\EcommerceAPI\Ecommerce.Authentication\bin\Debug\Ecommerce.Authentication.dll</HintPath>
-    </Reference>
     <Reference Include="Ecommerce.Common">
       <HintPath>..\..\EcommerceAPI\Ecommerce.Common\bin\Debug\Ecommerce.Common.dll</HintPath>
     </Reference>

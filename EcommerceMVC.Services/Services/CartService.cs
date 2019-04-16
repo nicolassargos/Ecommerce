@@ -15,7 +15,7 @@ namespace EcommerceMVC.Services
     {
         string baseApiUrl { get; }
         HttpClient client = new HttpClient();
-        string paymentApiUrl = "http://localhost:51675/";
+        string paymentApiUrl = "https://localhost:44348/";
         string paymentMvcUrl = "https://localhost:44387/";
         AccountService accountService;
 

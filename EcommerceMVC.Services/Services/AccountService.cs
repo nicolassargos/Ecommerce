@@ -40,12 +40,12 @@ namespace EcommerceMVC.Services
             //if (HttpContext.Current.Session["userCredentials"] == null)
             //    HttpContext.Current.Session.Add("userCredentials", account);
             //else
-                HttpContext.Current.Session["userCredentials"] = account;
+            EcommerceSession.UserCredentials = account;
         }
 
         public void Logout()
         {
-            HttpContext.Current.Session["userCredentials"] = new AccountModel();
+            EcommerceSession.UserCredentials = new AccountModel();
         }
 
         public async Task<AccountModel> GetUser(AccountModel account)

@@ -1,4 +1,6 @@
 ﻿@using EcommerceMVC.Models
+@using EcommerceMVC.Helper
+
 
 <!DOCTYPE html>
 <html>
@@ -39,16 +41,16 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             <ul class="navbar-nav ml-auto">
-                @if (((AccountModel)(Session["userCredentials"])).IsAuthenticated)
+                @if (EcommerceSession.UserCredentials.IsAuthenticated)
                 {
                     <li>
                         <p class="navbar-text">
-                            Welcome, @(((AccountModel)(Session["userCredentials"])).Login) !
+                            Welcome, @(EcommerceSession.UserCredentials.Login) !
                         </p>
                     </li>
                 }
                 <li>
-                    @if (!((AccountModel)(Session["userCredentials"])).IsAuthenticated)
+                    @if (!EcommerceSession.UserCredentials.IsAuthenticated)
                     {
                         @Html.ActionLink("Sign In", "Login", "Account", null, new { @class = "nav-link" })
                     }
@@ -57,7 +59,7 @@
                         @Html.ActionLink("Sign Out", "Logout", "Account", null, new { @class = "nav-link" })
                     }
                 </li>
-                @if (((AccountModel)(Session["userCredentials"])).IsAuthenticated && ((AccountModel)(Session["userCredentials"])).Role == "Admin")
+                @if (EcommerceSession.UserCredentials.IsAuthenticated && EcommerceSession.UserCredentials.Role == "Admin")
                 {
                     <li>
                         @Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })

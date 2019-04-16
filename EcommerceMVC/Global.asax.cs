@@ -1,4 +1,5 @@
-﻿using EcommerceMVC.Infrastructure;
+﻿using EcommerceMVC.Helper;
+using EcommerceMVC.Infrastructure;
 using EcommerceMVC.Models;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace EcommerceMVC
 
         protected void Session_Start(object sender, EventArgs e)
         {
-            HttpContext.Current.Session.Add("userCredentials", new AccountModel());
+
         }
     }
 }

@@ -45,7 +45,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="returnUrl"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> AddToCart(ShoppingCartModel cart, int productId, int quantity, string returnUrl)
+        public async Task<ActionResult> AddToCart(ShoppingCartModel cart, int productId, int quantity)
         {
             var productModel = await productService.GetProduct(productId);
 
@@ -59,11 +59,12 @@ namespace EcommerceMVC.Controllers
 
             cart.shoppingProducts.Add(shoppingProductModel);
 
-            return RedirectToAction("Index", new { returnUrl });
+            return RedirectToAction("Index");
         }
 
         public RedirectToRouteResult RemoveFromCart(ShoppingCartModel cart, int productId, int quantity, string returnUrl)
         {
+            
             service.RemoveItems(cart, productId, quantity);
 
             return RedirectToAction("Index", new { returnUrl });
@@ -74,7 +75,6 @@ namespace EcommerceMVC.Controllers
         public ViewResult CheckOut(ShoppingCartModel cart)
         {
             var checkOut = new CheckOutModel();
-
             checkOut.Cart = cart;
 
             return View(checkOut);
@@ -94,7 +94,7 @@ namespace EcommerceMVC.Controllers
                 throw;
             }
 
-            return Redirect(redirectUrl);
+            return Redirect($"{redirectUrl}&returnUrl={HttpContext.Request.Url.AbsoluteUri}");
         }
     }
 }
