@@ -94,7 +94,7 @@ namespace EcommerceMVC.Controllers
                 throw;
             }
 
-            return Redirect($"{redirectUrl}&returnUrl={HttpContext.Request.Url.AbsoluteUri}");
+            return Redirect($"{redirectUrl}&returnUrl={Url.Action("Index", "Cart", null, Request.Url.Scheme)}");
         }
     }
 }
