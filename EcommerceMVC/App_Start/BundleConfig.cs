@@ -24,6 +24,7 @@ namespace EcommerceMVC
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/Css/animate.css",
                       "~/Content/site.css"));
         }
     }

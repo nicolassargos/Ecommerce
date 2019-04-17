@@ -24,5 +24,27 @@ namespace EcommerceMVC.Helper
                 HttpContext.Current.Session["userCredentials"] = value;
             }
         }
+
+        public static ShoppingCartModel ShoppingCart
+        {
+            get
+            {
+                if (HttpContext.Current.Session["cart"] == null)
+                {
+                    HttpContext.Current.Session.Add("cart", new ShoppingCartModel());
+
+                }
+                return (ShoppingCartModel)HttpContext.Current.Session["cart"];
+            }
+
+            set
+            {
+                if (HttpContext.Current.Session["cart"] == null)
+                {
+                    HttpContext.Current.Session.Add("cart", new ShoppingCartModel());
+                }
+                HttpContext.Current.Session["cart"] = value;
+            }
+        }
     }
 }

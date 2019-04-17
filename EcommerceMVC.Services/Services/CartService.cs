@@ -37,6 +37,11 @@ namespace EcommerceMVC.Services
             throw new NotImplementedException();
         }
 
+        public void EmptyCart()
+        {
+            EcommerceSession.ShoppingCart = new ShoppingCartModel();
+        }
+
         //TODO: créer un service Payment
         public async Task<string> GetPaymentAuthorizationId(ShoppingCartModel cart)
         {
@@ -76,14 +81,23 @@ namespace EcommerceMVC.Services
             return (redirectUrl);
         }
 
-        
-        //public CheckOutModel GetCheckOut(ShoppingCartModel cart)
-        //{
-        //    var checkOut = new CheckOutModel();
+        public async Task<bool> CheckPayment(int paymentId)
+        {
+            try
+            {
+                var result = await client.GetAsync($"{paymentApiUrl}/check/{paymentId}");
+                if (result.IsSuccessStatusCode)
+                {
+                    return await result.Content.ReadAsAsync<bool>();
+                }
+            }
+            catch (Exception)
+            {
 
-        //    checkOut.Cart = cart;
+                return false;
+            }
 
-        //    return checkOut;
-        //}
+            return false;
+        }
     }
 }

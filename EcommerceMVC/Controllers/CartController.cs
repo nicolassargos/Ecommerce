@@ -94,7 +94,27 @@ namespace EcommerceMVC.Controllers
                 throw;
             }
 
-            return Redirect($"{redirectUrl}&returnUrl={Url.Action("Index", "Cart", null, Request.Url.Scheme)}");
+            return Redirect($"{redirectUrl}&returnUrl={Url.Action("EmptyCart", "Cart", null, Request.Url.Scheme)}");
+        }
+
+        [HttpGet]
+        [Route("empty/{paymentId}")]
+        public async Task<ActionResult> EmptyCart(int paymentId)
+        {
+            try
+            {
+                bool result = await service.CheckPayment(paymentId);
+                if (result)
+                {
+                    service.EmptyCart();
+                    return RedirectToAction("Index", "Home");
+                }
+                return RedirectToAction("Index", "Cart");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -28,5 +28,10 @@ namespace EcommerceMVC.Models
                 return total;
             }
         }
+
+        public ShoppingCartModel()
+        {
+            shoppingProducts = new List<ShoppingProductModel>();
+        }
     }
 }
