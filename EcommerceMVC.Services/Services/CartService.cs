@@ -1,8 +1,11 @@
-﻿using EcommerceMVC.Helper;
+﻿using EcommerceMVC.Common.Models;
+using EcommerceMVC.Helper;
 using EcommerceMVC.Models;
+using EcommerceMVC.Services.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -15,45 +18,72 @@ namespace EcommerceMVC.Services
     {
         string baseApiUrl { get; }
         HttpClient client = new HttpClient();
-        string paymentApiUrl = "https://localhost:44348/";
-        string paymentMvcUrl = "https://localhost:44387/";
-        AccountService accountService;
 
+        AccountService accountService;
+        RoutingService routingService;
+
+
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="urlBuilder"></param>
         public CartService(IUrlBuilder urlBuilder)
         {
             baseApiUrl = urlBuilder.BaseUrl;
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "dXNlcjpwYXNzdw ==");
             accountService = new AccountService(urlBuilder);
+            routingService = new RoutingService();
         }
 
+
+        /// <summary>
+        /// Ajoute un produit du panier (ShoppingCart) en session
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productId"></param>
+        /// <param name="quantity"></param>
         public async void AddItems(ShoppingCartModel cart, int productId, int quantity)
         {
             var result = await client.GetAsync($"{baseApiUrl}product/{productId}");
             ShoppingCartModel shoppingCart = JsonConvert.DeserializeObject<ShoppingCartModel>(await result.Content.ReadAsStringAsync());
         }
 
+
+        /// <summary>
+        /// Retire un produit du panier (ShoppingCart) en session
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="productId"></param>
+        /// <param name="quantity"></param>
         public void RemoveItems(ShoppingCartModel cart, int productId, int quantity)
         {
             throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// Vide le panier (ShoppingCart) stocké session
+        /// </summary>
         public void EmptyCart()
         {
             EcommerceSession.ShoppingCart = new ShoppingCartModel();
         }
 
         //TODO: créer un service Payment
+        /// <summary>
+        /// Envoie le montant de la transaction à effectuer à l'API de paiement
+        /// Récupère un id de transaction (guid)
+        /// et redirige vers la page de formulaire de saisie de la carte de crédit
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
         public async Task<string> GetPaymentAuthorizationId(ShoppingCartModel cart)
         {
 
-            string apiUrl = string.Concat(paymentApiUrl, "api/Payments");
-
-            var payment = new PaymentModel()
+            var payment = new PaymentPromessModel()
             {
-                expiryDate = DateTime.Now,
-                paymentAmount = cart.totalAmount
+                amount = cart.totalAmount
             };
-
 
             var json = JsonConvert.SerializeObject(payment);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -62,42 +92,53 @@ namespace EcommerceMVC.Services
 
             try
             {
-                result = await client.PostAsync(apiUrl, content);
+                result = await client.PostAsync(routingService.PaymentAuthorizationUrl, content);
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
 
-            string paymentAuthId="";
-
-            if (result.IsSuccessStatusCode)
+            if (!result.IsSuccessStatusCode)
             {
-                paymentAuthId = await result.Content.ReadAsStringAsync();
+                throw new HttpRequestException("Unable to get an authorization for this transaction");
             }
 
-            var redirectUrl = $"{paymentMvcUrl}Payment?paymentId={paymentAuthId}";
+            IEnumerable<string> paymentAuthId = new Collection<string>();
 
-            return (redirectUrl);
+            result.Headers.TryGetValues("guid", out paymentAuthId);
+            // Redirige vers la page de saisie des données de Carte de Crédit
+            var CreditCardCFormUrl = routingService.GetPaymentMvcCCFormUrl(paymentAuthId.ElementAt(0));
+
+            return (CreditCardCFormUrl);
         }
 
-        public async Task<bool> CheckPayment(int paymentId)
+
+        /// <summary>
+        /// Vérifie le status d'une transaction et 
+        /// renvoie true si la transaction a été acceptée par l'API de paiement
+        /// </summary>
+        /// <param name="paymentId"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckPayment(string paymentId)
         {
+            if (string.IsNullOrEmpty(paymentId)) throw new NullReferenceException();
+
             try
             {
-                var result = await client.GetAsync($"{paymentApiUrl}/check/{paymentId}");
+                var result = await client.GetAsync(routingService.GetPaymentStatusCheckUrl(paymentId));
                 if (result.IsSuccessStatusCode)
                 {
                     return await result.Content.ReadAsAsync<bool>();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return false;
+                throw new Exception(ex.Message, ex.InnerException);
             }
 
             return false;
         }
+
     }
 }

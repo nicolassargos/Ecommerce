@@ -68,6 +68,7 @@
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CheckOutModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\PaymentPromessModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\ShoppingProductModel.cs" />

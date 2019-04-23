@@ -89,7 +89,7 @@ namespace EcommerceMVC.Controllers
             {
                 redirectUrl = await service.GetPaymentAuthorizationId(cart);
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -99,7 +99,7 @@ namespace EcommerceMVC.Controllers
 
         [HttpGet]
         [Route("empty/{paymentId}")]
-        public async Task<ActionResult> EmptyCart(int paymentId)
+        public async Task<ActionResult> EmptyCart(string paymentId)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace EcommerceMVC.Controllers
                 }
                 return RedirectToAction("Index", "Cart");
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

@@ -7,7 +7,8 @@ namespace EcommerceMVC.Models
 {
     public class PaymentModel
     {
-        public int Id { get; set; }
+        public int id { get; set; }
+        public string guid { get; set; }
         public string cardNumber { get; set; }
         public string cardholderName { get; set; }
         public string cvv { get; set; }
