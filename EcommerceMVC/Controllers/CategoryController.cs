@@ -188,6 +188,8 @@ namespace EcommerceMVC.Controllers
             if (result.Count() > 0)
                 ViewBag.CategoryName = result.First().categoryName ?? "";
 
+            ViewBag.qtd = 1;
+
             return View(result);
         }
     }

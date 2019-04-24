@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 30px;
     padding-bottom: 20px;
+    height: 100vh !important;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -14,6 +15,10 @@
 */
 .dl-horizontal dt {
     white-space: normal;
+}
+
+.body-height {
+    height: calc(100% - 60px);
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

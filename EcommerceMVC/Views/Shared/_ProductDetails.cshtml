@@ -1,0 +1,44 @@
+﻿@model EcommerceMVC.Models.ProductModel
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h2 class="py-5 card-title">@Model.name</h2>
+        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(model => model.categoryName)</h6>
+        <p class="card-text">@Html.DisplayFor(model => model.description)</p>
+        <p>@Html.DisplayFor(model => model.price)</p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button id="btnIncrement" type="button" onclick="increment_@(Model.id)()" class="btn btn-dark">+</button>
+            </div>
+            <input id="quantity_@(Model.id)" name="quantity" type="text" value="@ViewBag.qtd" class="form-control col-3" />
+            <div class="input-group-append">
+                <button id="btnDecrement" type="button" onclick="decrement_@(Model.id)()" class="btn btn-dark">-</button>
+            </div>
+        </div>
+        <div class="mr-auto">
+            <a id="submit_@(Model.id)" href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var increment_@(Model.id) = function () {
+        let oldValue = $('#quantity_@(Model.id)').val();
+        $('#quantity_@(Model.id)').val(parseFloat(oldValue) + 1);
+    };
+
+    var decrement_@(Model.id) = function () {
+        let oldValue = $('#quantity_@(Model.id)').val();
+        if (oldValue > 0)
+            $('#quantity_@(Model.id)').val(parseFloat(oldValue) - 1);
+        };
+
+    $(document).ready(function () {
+        var baseUrl_@(Model.id) = '@Url.Action("AddToCart", "Cart")';
+        $('#submit_@(Model.id)').click(function() {
+            var url = baseUrl_@(Model.id) + '?productId=' + @Model.id + '&quantity=' + $('#quantity_@(Model.id)').val();
+          location.href=url;
+        });
+    });
+</script>

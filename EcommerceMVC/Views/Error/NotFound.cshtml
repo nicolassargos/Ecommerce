@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "NotFound";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+        <div class="row body-height justify-content-center align-items-center">
+            <div class="col-6">
+                <h2 class="h2 text-center">Oups!</h2>
+                <h5 class="text-center">Il semblerait que la page recherchée n'existe pas...</h5>
+                <div class="text-center my-5">
+                    @Html.ActionLink("Retourner à la page d'accueil", "Index", "Home", null, new { @class = "btn btn-info text-right" } )
+                </div>
+            </div>
+        </div>

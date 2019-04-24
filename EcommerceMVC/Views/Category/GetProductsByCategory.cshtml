@@ -14,50 +14,13 @@
 }
 else
 {
+    <h2>@ViewBag.CategoryName</h2>
     <div class="row my-5">
-        <h2>@ViewBag.CategoryName</h2>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.publicationDate)
-                </th>
-                <th></th>
-            </tr>
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_ProductDetails", item)
+        }
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.publicationDate)
-                    </td>
-                    <td>
-                        @Html.ActionLink("View", "Details", "Product", new { id = item.id }, null)
-                        @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-        @Html.ActionLink("Details", "Details", new { id=item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
-                    </td>
-                </tr>
-            }
-
-        </table>
     </div>
 }

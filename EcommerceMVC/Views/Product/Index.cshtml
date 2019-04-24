@@ -16,9 +16,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.parentCategoryId)
-                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -29,9 +26,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.parentCategoryId)
-                    </td>*@
                 <td>
                     @using (Html.BeginForm("Delete", "Product"))
                     {

@@ -55,9 +55,10 @@ namespace EcommerceMVC.Services
         /// <param name="cart"></param>
         /// <param name="productId"></param>
         /// <param name="quantity"></param>
-        public void RemoveItems(ShoppingCartModel cart, int productId, int quantity)
+        public void RemoveItems(int productId)
         {
-            throw new NotImplementedException();
+            var shpProduct = EcommerceSession.ShoppingCart.shoppingProducts.Single(shp => shp.productId == productId);
+            EcommerceSession.ShoppingCart.shoppingProducts.Remove(shpProduct);
         }
 
 
@@ -113,6 +114,30 @@ namespace EcommerceMVC.Services
             return (CreditCardCFormUrl);
         }
 
+        /// <summary>
+        /// Changes the quantity of a product in the shopping cart
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="quantity"></param>
+        public void ChangeProductQuantity(int productId, int quantity)
+        {
+            if (productId == 0) throw new ArgumentNullException("L'Id d'un shoppingProduct ne peut pas être nul");
+            if (!Exists(productId)) throw new ArgumentOutOfRangeException($"Aucun shoppingProduct n'a été trouvé avec l'Id {productId}");
+            if (quantity <= 0)
+            {
+                RemoveItems(productId);
+                return;
+            }
+            try
+            {
+                EcommerceSession.ShoppingCart.shoppingProducts.Single(shp => shp.productId == productId).quantity = quantity;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
 
         /// <summary>
         /// Vérifie le status d'une transaction et 
@@ -138,6 +163,14 @@ namespace EcommerceMVC.Services
             }
 
             return false;
+        }
+
+        public bool Exists(int productId)
+        {
+            if (EcommerceSession.ShoppingCart.shoppingProducts.Exists(shp => shp.productId == productId))
+                return true;
+            else
+                return false;
         }
 
     }

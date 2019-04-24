@@ -8,7 +8,7 @@
 <h2>My Cart</h2>
 
 <div>
-    @using (Html.BeginForm("Index", "Cart", "POST" ))
+    @using (Html.BeginForm("Index", "Cart", "POST"))
     {
         <table class="table table-striped">
             <thead>
@@ -17,24 +17,35 @@
                     <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().pricePerUnit)</th>
                     <th>@Html.LabelFor(m => m.Cart.shoppingProducts.First().quantity)</th>
                     <th>SubTotal</th>
+                    <th></th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach (var prod in Model.Cart.shoppingProducts)
                 {
-                    <tr>
+                    <tr class="cart-item">
                         <td>
-                            @Html.LabelFor(model => @prod.name)
+                            @prod.name
                         </td>
                         <td>
-                            @Html.LabelFor(model => @prod.pricePerUnit)
+                            @prod.pricePerUnit
                         </td>
                         <td>
-                            @Html.LabelFor(model => @prod.quantity)
+                            <input id="productQuantity_@(prod.productId)" type="text" disabled value="@prod.quantity" name="quantity" />
                         </td>
                         <td>
                             <label>@(prod.pricePerUnit * prod.quantity)</label>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button id="btnIncrement_@(prod.productId)" type="button" onclick="increment(@(prod.productId))" class="btn btn-dark">+</button>
+                                </div>
+                                <div class="input-group-append">
+                                    <button id="btnDecrement_@(prod.productId)" type="button" onclick="decrement(@(prod.productId))" class="btn btn-dark">-</button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -44,8 +55,8 @@
                     <td></td>
                     <td></td>
                     <td>Total:</td>
-                    <td>
-                        @Model.Cart.shoppingProducts.Sum(prd => prd.quantity * prd.pricePerUnit)
+                    <td id="cart-total">
+                        @Model.Cart.totalAmount
                     </td>
                 </tr>
             </tfoot>
@@ -56,3 +67,35 @@
     }
 
 </div>
+
+
+<script>
+    var increment = function (id) {
+        let oldValue = $('#productQuantity_' + id).val();
+        $('#productQuantity_' + id).val(parseFloat(oldValue) + 1);
+        let newValue = $('#productQuantity_' + id).val();
+        changeQuantity(id, newValue);
+    }
+
+
+    var decrement = function (id) {
+        let oldValue = $('#productQuantity_' + id).val();
+        $('#productQuantity_' + id).val(parseFloat(oldValue) - 1);
+        let newValue = $('#productQuantity_' + id).val();
+        changeQuantity(id, newValue);
+    }
+
+
+
+    var changeQuantity = function (id, productQuantity) {
+        $.ajax({
+            type: 'POST',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)' + '/Cart/ChangeProductQuantity?productId=' + id + '&quantity=' + productQuantity,
+            dataType: 'json',
+            traditional: true,
+            success: function (cart) {
+                $('#cart-total').text(cart.totalAmount);
+            }
+        });
+    };
+</script>

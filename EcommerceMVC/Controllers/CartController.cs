@@ -4,6 +4,7 @@ using EcommerceMVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -44,7 +45,7 @@ namespace EcommerceMVC.Controllers
         /// <param name="quantity"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        [HttpPost]
+        //[HttpPost]
         public async Task<ActionResult> AddToCart(ShoppingCartModel cart, int productId, int quantity)
         {
             var productModel = await productService.GetProduct(productId);
@@ -65,7 +66,7 @@ namespace EcommerceMVC.Controllers
         public RedirectToRouteResult RemoveFromCart(ShoppingCartModel cart, int productId, int quantity, string returnUrl)
         {
             
-            service.RemoveItems(cart, productId, quantity);
+            service.RemoveItems(productId);
 
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -115,6 +116,14 @@ namespace EcommerceMVC.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public JsonResult ChangeProductQuantity(int productId, int quantity)
+        {
+            service.ChangeProductQuantity(productId, quantity);
+
+            return Json(EcommerceSession.ShoppingCart, JsonRequestBehavior.AllowGet);
         }
     }
 }
